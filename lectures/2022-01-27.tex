@@ -3,24 +3,24 @@
 \section{January 27, 2022}
 \subsection{Course Logistics}
 \begin{itemize}
-    \item Mostly refer to syllabus for any information that you might need. 
-    \item Midterm is planned for March 17. 
-    \item Final exam schedule can be found on CAB. 
+    \item Mostly refer to syllabus for any information that you might need.
+    \item Midterm is planned for March 17.
+    \item Final exam schedule can be found on CAB.
 \end{itemize}
 
 \subsection{Introduction to Number Theory}
-Number theory can be split into two branches: analytic number theory and algebraic number theory. 
+Number theory can be split into two branches: analytic number theory and algebraic number theory.
 
-\emph{What is number theory?} Number theory is the study of integers and their analogues in algebraic number fields. 
+\emph{What is number theory?} Number theory is the study of integers and their analogues in algebraic number fields.
 
-Prime numbers are a key focus of number theory, and the study of different properties of primes constitutes different fields of number theory: 
+Prime numbers are a key focus of number theory, and the study of different properties of primes constitutes different fields of number theory:
 \begin{enumerate}[i.]
-    \item The study of their distributional properties, which is \ul{analytic number theory}. 
-    \item As building blocks for algebraic numbers, which is \ul{algebraic number theory}. 
+    \item The study of their distributional properties, which is \ul{analytic number theory}.
+    \item As building blocks for algebraic numbers, which is \ul{algebraic number theory}.
 \end{enumerate}
 
 \subsubsection{Examples of Analytic Number Theory}
-Here are some examples of analytic number theory and their statements: 
+Here are some examples of analytic number theory and their statements:
 \begin{itemize}
     \item Prime Number Theorem
     \item Twin Prime Conjecture
@@ -33,46 +33,46 @@ Here are some examples of analytic number theory and their statements:
     \end{equation*}
 \end{theorem}
 \begin{conjecture}[Twin Prime Conjecture]
-    Twin primes are pairs of primes $p, q$ of the form $q=p+2$. Examples include $(3, 5), (11, 13), \dots$. The conjecture postulates that there are infinitely many twin primes. 
+    Twin primes are pairs of primes $p, q$ of the form $q=p+2$. Examples include $(3, 5), (11, 13), \dots$. The conjecture postulates that there are infinitely many twin primes.
 \end{conjecture}
 \begin{conjecture}[Goldbach's conjecture]
-    Any positive even integer greater than $2$ can be written as the sum of $2$ primes. 
+    Any positive even integer greater than $2$ can be written as the sum of $2$ primes.
 \end{conjecture}
 
 \subsubsection{Examples of Algebraic Number Theory}
-Analyzing the factorization (rings of integers) of number fields is one topic of algebraic number theory. 
+Analyzing the factorization (rings of integers) of number fields is one topic of algebraic number theory.
 \begin{example}
-    $2$ is prime (irreducible) in $\ZZ$. 
+    $2$ is prime (irreducible) in $\ZZ$.
 
-    Yet $2$ is not prime in $\ZZ[i]$ (the Gaussian integers). This is because 
+    Yet $2$ is not prime in $\ZZ[i]$ (the Gaussian integers). This is because
     \[2 = \underbrace{(1+i)(1-i)}_{\text{associates}}\]
-    we have that $(1+i) = i(1-i)$. We also note the property that the principal ideals $(2) = (1+i)^2$ are equal. 
+    we have that $(1+i) = i(1-i)$. We also note the property that the principal ideals $(2) = (1+i)^2$ are equal.
 
-    In this example, we say that $2$ ``ramifies'' in the ring of integers. 
+    In this example, we say that $2$ ``ramifies'' in the ring of integers.
 \end{example}
 
-Fermat's Last Theorem is another such example. 
+Fermat's Last Theorem is another such example.
 
-\recall that a \emph{Pythagorean triple} is a triple of the form $a, b, c\in \ZZ_+$ such that 
+\recall that a \emph{Pythagorean triple} is a triple of the form $a, b, c\in \ZZ_+$ such that
 \[a^2 + b^2 = c^2\]
-Are there examples of such numbers with different exponents (say, $k^\mathrm{th}$ powers for $k\geq 3$)? 
+Are there examples of such numbers with different exponents (say, $k^\mathrm{th}$ powers for $k\geq 3$)?
 \begin{theorem}[Fermat's Last]
-    There are no positive integers $a, b, c\in \ZZ_+$ satisfying 
+    There are no positive integers $a, b, c\in \ZZ_+$ satisfying
     \[a^k + b^k = c^k\]
-    for $k\geq 3$. 
+    for $k\geq 3$.
 \end{theorem}
 The answer is no! (Proved by Andrew Wiles)
 
 \begin{conjecture}[$abc$ Conjecture, informally]
-    We say \emph{powerful numbers} are positive integers whose prime factorization contains relatively few distinct primes (appropriately weighted) with an exponent of 1. 
+    We say \emph{powerful numbers} are positive integers whose prime factorization contains relatively few distinct primes (appropriately weighted) with an exponent of 1.
     \begin{example*}
-        $2^{10}3^7$ is powerful, $2^{10}3^{7}5$ is powerful, $1$ is powerful. 
+        $2^{10}3^7$ is powerful, $2^{10}3^{7}5$ is powerful, $1$ is powerful.
     \end{example*}
 
-    If $a, b$ are \emph{very powerful} coprime numbers, then $a+b$ is predicted to be \emph{not powerful}. 
+    If $a, b$ are \emph{very powerful} coprime numbers, then $a+b$ is predicted to be \emph{not powerful}.
 \end{conjecture}
 \begin{example}
-    Consider $2^{10}$ and $3^{15}$. We have 
+    Consider $2^{10}$ and $3^{15}$. We have
     \[2^{10} + 3^{15} = 14,349,931 = \underbrace{31\cdot 462\cdot 901}_{\text{not powerful}}\]
 \end{example}
 What about another example, like $3^{15} + 5$? The $abc$ conjecture also predicts that this number is not so powerful...\footnote{After lecture Jiahua: It's a prime!?}
