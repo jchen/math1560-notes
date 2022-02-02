@@ -94,10 +94,10 @@
 % Format
 \RequirePackage{geometry}
 \geometry{
-    left=25mm,
-    right=25mm,
-    top=25mm,
-    bottom=25mm,
+    left=26mm,
+    right=26mm,
+    top=26mm,
+    bottom=26mm,
     headsep=5mm,
 }
 
@@ -122,9 +122,9 @@
     \setlength{\footskip}{0.5in}
     \setlength{\headsep}{10pt}
     \ifnodate
-        \ihead{\textbf{\theauthor}}
+        \ihead{\footnotesize\textbf{\theauthor}}
     \else
-        \ihead{\textbf{\theauthor} (\thedate)}
+        \ihead{\footnotesize\textbf{\theauthor} (\thedate)}
     \fi
     \automark{section}
     \chead{}
@@ -174,6 +174,7 @@
     showstringspaces=false
 }
 
+\RequirePackage{fontawesome}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifcolorful
@@ -185,7 +186,7 @@
         innerbottommargin=9pt,
         skipbelow=2pt,
         linecolor=blue,
-        nobreak=false,% Page breaking
+        nobreak=true,% Page breaking
         backgroundcolor=TealBlue!5,
     }
     \declaretheoremstyle[
@@ -203,7 +204,7 @@
         frametitlefont=\bfseries,
         innertopmargin=4pt,
         innerbottommargin=8pt,
-        nobreak=false,%Page breaking
+        nobreak=true,%Page breaking
         backgroundcolor=Salmon!5,
         linecolor=RawSienna,
     }
@@ -213,6 +214,25 @@
         headpunct={\\[3pt]},
         postheadspace={0pt},
     ]{thmredbox}
+    \mdfdefinestyle{mdredboxbreakable}{%
+        linewidth=0.5pt,
+        skipabove=12pt,
+        frametitleaboveskip=5pt,
+        frametitlebelowskip=0pt,
+        skipbelow=2pt,
+        frametitlefont=\bfseries,
+        innertopmargin=4pt,
+        innerbottommargin=8pt,
+        nobreak=false,%Page breaking
+        backgroundcolor=CarnationPink!5,
+        linecolor=Fuchsia,
+    }
+    \declaretheoremstyle[
+        headfont=\bfseries\color{Fuchsia},
+        mdframed={style=mdredboxbreakable},
+        headpunct={\\[3pt]},
+        postheadspace={0pt},
+    ]{thmredboxexample}
     \mdfdefinestyle{mdgreenbox}{%
         skipabove=8pt,
         linewidth=2pt,
@@ -255,23 +275,23 @@
 \ifcolorful
     \ifsectionnumbering
         \declaretheorem[%
-            style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+            style=thmredbox,name=Theorem,numberwithin=section]{theorem}
     \fi
 	\ifsubsectionnumbering
 		\declaretheorem[%
-			style=thmbluebox,name=Theorem,numberwithin=subsection]{theorem}
+			style=thmredbox,name=Theorem,numberwithin=subsection]{theorem}
 	\fi
 	\ifrawnumbering
 		\declaretheorem[%
-			style=thmbluebox,name=Theorem]{theorem}
+			style=thmredbox,name=Theorem]{theorem}
     \fi
-    \declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
-    \declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
-    \declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
-    \declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
-    \declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
-    \declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
-    \declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
+    \declaretheorem[style=thmredbox,name=Lemma,sibling=theorem]{lemma}
+    \declaretheorem[style=thmredbox,name=Proposition,sibling=theorem]{proposition}
+    \declaretheorem[style=thmredbox,name=Corollary,sibling=theorem]{corollary}
+    \declaretheorem[style=thmredbox,name=Theorem,numbered=no]{theorem*}
+    \declaretheorem[style=thmredbox,name=Lemma,numbered=no]{lemma*}
+    \declaretheorem[style=thmredbox,name=Proposition,numbered=no]{proposition*}
+    \declaretheorem[style=thmredbox,name=Corollary,numbered=no]{corollary*}
 \else
     \ifsectionnumbering
         \declaretheorem[name=Theorem,numberwithin=section]{theorem}
@@ -298,8 +318,8 @@
     \declaretheorem[name=Claim,numbered=no]{claim*}
 \fi
 \ifcolorful
-    \declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
-    \declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
+    \declaretheorem[style=thmredboxexample,name=Example,sibling=theorem]{example}
+    \declaretheorem[style=thmredboxexample,name=Example,numbered=no]{example*}
 \else
     \declaretheorem[name=Example,sibling=theorem]{example}
     \declaretheorem[name=Example,numbered=no]{example*}
@@ -312,10 +332,21 @@
     \declaretheorem[name=Remark,sibling=theorem]{remark}
     \declaretheorem[name=Remark,numbered=no]{remark*}
 \fi
-\declaretheorem[name=Conjecture,sibling=theorem]{conjecture}
-\declaretheorem[name=Conjecture,numbered=no]{conjecture*}
-\declaretheorem[name=Definition,sibling=theorem]{definition}
-\declaretheorem[name=Definition,numbered=no]{definition*}
+\ifcolorful
+    \declaretheorem[style=thmredbox, name=Conjecture,sibling=theorem]{conjecture}
+    \declaretheorem[style=thmredbox, name=Conjecture,numbered=no]{conjecture*}
+\else
+    \declaretheorem[name=Conjecture,sibling=theorem]{conjecture}
+    \declaretheorem[name=Conjecture,numbered=no]{conjecture*}
+\fi
+\ifcolorful
+    \declaretheorem[style=thmbluebox, name=Definition,sibling=theorem]{definition}
+    \declaretheorem[style=thmbluebox, name=Definition,numbered=no]{definition*}
+\else
+    \declaretheorem[name=Definition,sibling=theorem]{definition}
+    \declaretheorem[name=Definition,numbered=no]{definition*}
+\fi
+
 \declaretheorem[name=Exercise,sibling=theorem]{exercise}
 \declaretheorem[name=Exercise,numbered=no]{exercise*}
 \declaretheorem[name=Fact,sibling=theorem]{fact}
@@ -356,3 +387,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% macros %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\recall}{\textit{Recall:} }
+
+% Sets of numbers
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+
+% From Math1560
+\DeclareMathOperator{\ord}{ord}

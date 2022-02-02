@@ -1,0 +1,158 @@
+%!TEX root = ../notes.tex
+\section{February 1, 2022}
+\todo{Happy Lunar New Year! \faHandPeaceO}
+
+\subsection{Divisibility and Factorization}
+We start with some commonly used notation:
+\begin{definition}[Divisibility]
+    We use $a\mid b$ to mean ``$a$ divides $b$'' and $a\nmid b$ to mean ``$a$ does not divide $b$''.
+\end{definition}
+
+Now for a series of definitions:
+
+\begin{definition}[Primality]
+    A positive integer $p\geq 2$ is said to be \ul{prime} if its only positive divisors are $1$ and $p$.
+\end{definition}
+
+\begin{definition}[Positive Integers]
+    $\ZZ_+$ will denote the \ul{positive integers}.
+\end{definition}
+
+\begin{definition}[Order]
+    For a nonzero $n\in \ZZ$ and a prime $p$, there is a nonnegative integer $a$ such that $p^a\mid n$ but $p^{a + 1}\nmid n$. This number $a$ is called the \ul{order} of $n$ at $p$, denoted by $\ord_p n$.
+
+    For $n=0$, we set $\ord_p 0 = \infty$. We also have $\ord_p n = 0\Leftrightarrow p\nmid n$.
+\end{definition}
+
+We prove a lemma as warm-up:
+\begin{lemma}[Existence of Factorization]
+    Every nonzero integer can be written as a product of primes.
+
+    \emph{We make an exception for $-1$. The empty product is $1$ so $1$ is fine.}
+\end{lemma}
+\begin{proof}
+    Suppose for the sake of contradiction otherwise, that some nonzero integer can be written as a product of primes. Let $N$ be the smallest integer greater than $2$ that cannot be written as a product of primes.
+
+    $N$ had better not be a prime number itself (since then it would be a product of itself). Then we can write $N = a\cdot b$ where $1 < a, b < N$.
+
+    Since we took $N$ as the least such number that cannot be written as a product of primes, $a$ and $b$ which are less than $N$ can be written as a product of primes. Then $N$ is a product of primes since $a$ and $b$ individually are. This is a contradiction! Thus it had better be the case that \emph{every} nonzero integer can be written as a product of primes.
+\end{proof}
+
+This is the theorem we will eventually work toward proving:
+
+\begin{theorem}[Unique Factorization]\label{unique-factorization}
+    Every nonzero integer $n$ yields a \emph{unique} prime factorization
+    \begin{equation*}
+        n = (-1)^\varepsilon\cdot \prod_{p}p^{a(p)}, a(p)\geq 0
+    \end{equation*}
+    where $\varepsilon = 0$ or $1$, and $\varepsilon, a(p)$ are uniquely determined by $n$. Moreover, we note that $a(p) = \ord_p n$.
+\end{theorem}
+
+\subsection{Euclidean and Principal Ideal Domains}
+Before this proof, we first recall a conclusion from Math 1530:
+\begin{lemma}[Division Lemma]\label{division-lemma}
+    If $a, b\in \ZZ$ and $b>0$, then there exists $q, r\in \ZZ$ such that
+    \[a = bq + r\]
+    with $0\leq r < b$.
+\end{lemma}
+\begin{proof}
+    Consider the set
+    \[S = \{a - xb \mid x\in \ZZ\}\]
+    We note that $S$ contains \emph{some} positive elements. Let $r = a - qb$ be the least nonnegative element of $S$.
+
+    We claim that $0\leq r < b$. Suppose for the sake of contradiction otherwise, then $r = a - qb \geq b$ gives $a - qb - b \leq 0$ and $a - (q+1)b\leq 0$. Which is a contradiction since we took $r$ to be a the least nonnegative element in $S$ and we've found such smaller element $a - (q+1)b$.
+
+    Then it had better be that $0\leq r < b$ for some $r, q\in\ZZ$.
+\end{proof}
+\begin{corollary}
+    $\ZZ$ is a Euclidean domain, with a Euclidean function given by \cref{division-lemma}.
+
+    $R[x]$ for field $R$ is also a Euclidean domain, with $\lambda = \deg$.
+\end{corollary}
+
+\begin{definition}[Euclidean Domain]
+    Let $R$ be an integral domain. $R$ is a \ul{Euclidean domain} if there exists a function $\lambda: R\setminus \{0\} \to \NN$ such that if $a, b\in R$ with $b\neq 0$, then there exists some $c, d\in R$ with the property that $a = cb + d$ with $d=0$ or $\lambda(d) < \lambda(b)$.
+\end{definition}
+\begin{example}
+    $\ZZ$ is a Euclidean domain with $\lambda$ function given in \cref{division-lemma}.
+\end{example}
+
+\begin{proposition}
+    If $R$ is a Euclidean domain, then $R$ is a principal ideal domain. That is, if $I\subseteq R$ is an ideal, then $\exists a\in R$ such that $I = Ra = \{ra\mid r\in R\}$.
+\end{proposition}
+\begin{proof}
+    Assume WLOG that $I$ is not the trivial ideal $I\neq (0)$. Let $0\neq a\in I$ such that $\lambda(a)\leq \lambda(b) \forall b\in I, b\neq 0$.
+
+    We claim that $I = (a) = Ra$.
+
+    We know that $Ra\subseteq I$ since $I$ is an ideal. Let $b\in I$. Then $\exists c, d\in R$ such that $b = ca + d$ where $d = 0$ or $\lambda(d) < \lambda(a)$. Now we have $d = b-ca\in I$, so we can't have $\lambda(d) < \lambda(a)$. Thus $d = 0$, so $b=ca\in Ra$.
+
+    Hence we have $I\subseteq Ra$. Together, we conclude that $I = Ra$.
+\end{proof}
+
+\begin{definition}[Principal Ideals, PIDs]
+    If $I = (a)$ for some $a\in I$, then $I$ is said to be a \ul{principal ideal}.
+
+    $R$ is a \ul{principal ideal domain} (PID) if every ideal of $R$ is principal.
+\end{definition}
+
+Here are some important properties of PIDs:
+\begin{enumerate}
+    \item Nonunit irreducible elements are exactly the prime elements in $R$.
+
+          \recall $p\in R$ is \ul{irreducible} if $a\mid p\Rightarrow a$ is either a unit or an associate of $p$.
+
+          $p\in R$ is \ul{prime} if $p\mid ab\Rightarrow p\mid a$ or $p\mid b$ and $p$ is a nonzero, nonunit of $R$.
+
+    \item GCDs always exist in PIDs.
+\end{enumerate}
+
+\subsection{Unique Prime Factorization}
+We're nearly ready to prove unique factorization, after a lemma:
+\begin{lemma}\label{additive-orders}
+    Suppose $p$ is a prime, and $a, b\in Z$. Then $\ord_p(ab) = \ord_p a + \ord_p b$.
+\end{lemma}
+\begin{proof}
+    WLOG, assume $a, b\neq 0$. We let
+    \begin{align*}
+        \alpha & = \ord_p a \\
+        \beta  & = \ord_p b
+    \end{align*}
+    Then we have
+    \begin{align*}
+        a & = p^\alpha\cdot c \text{ where }p\nmid c \\
+        b & = p^\beta\cdot d \text{ where }p\nmid d
+    \end{align*}
+    Thus, $ab = p^{\alpha + \beta}\cdot cd$. We have that $p\nmid cd$ since $p\nmid c$ and $p\nmid d$ (we rely on the fact that if $p$ is irreducible, $p$ is prime). Thus we have that $\ord_p (ab) = \alpha + \beta$.
+\end{proof}
+
+\begin{proof}
+    (of \cref{unique-factorization}, that $\ZZ$ is a UFD). Recall that for a nonzero $n\in \ZZ$, we write
+    \[n = (-1)^\varepsilon \prod_{p}p^a(p), \text{where }\varepsilon = 0\text{ or }1\text{ and }a(p)\geq 0\]
+    Given a positive prime $q$, we take $\ord_q$ of both sides. By \cref{additive-orders}, this yields
+    \[\ord_q n = \varepsilon\cdot \ord_q (-1) + \sigma_p a(p)\ord_q(p)\]
+    Since we have that $\ord_q(-1) = 0$ and $\ord_q(p) = 0, \forall p\neq q$, we've uniquely determined $a(q)$ since $\ord_q(n) = a(q)$. That is, $a(q)$ is \emph{uniquely determined} for all primes $q$. So $n$ has a \emph{unique} prime factorization.
+\end{proof}
+
+\subsection{Greatest Common Divisors}
+\begin{definition}
+    Let $R$ be an integral domain. Then $d\in R$ is said to be a $\gcd$ of two elements $a, b$ if
+    \begin{enumerate}[i)]
+        \item $d\mid a$ and $d\mid b$,
+        \item if $d'\mid a$ and $d'\mid b$, then $d'\mid d$.
+    \end{enumerate}
+\end{definition}
+\begin{remark*}
+    An aside for ring theory enthusiasts: $\gcd$ domains are a class of rings mroe general than PIDs or UFDs.
+\end{remark*}
+We will denote $(a, b)$ as the $\gcd$ of $a$ and $b$.
+
+\textbf{Caution, however!} $\gcd$'s are only unique up to units.
+
+\begin{example*}
+    $-5$ and $5$ are both $\gcd$s of $-5$ and $10$ since $-1$ is a unit.
+\end{example*}
+
+We will ake the convention that the $\gcd$ of 2 integers is the positive $\gcd$, that is, $(-5, 10) = 5$.
+
+An edge case is that $\gcd(0, 0)=0$.
