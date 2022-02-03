@@ -1,0 +1,179 @@
+%!TEX root = ../notes.tex
+\section{February 3, 2022}
+
+\subsection{Arithmetic Functions}
+
+We look at arithmetic functions and how they act on prime numbers:
+\begin{definition}[Arithmetic Function]
+    An \ul{arithmetic function} is a function $f: \ZZ_+ \to \CC$.
+
+    \emph{(Typically, these are integer valued.)}
+\end{definition}
+\begin{example}We have some examples of arithmetic functions:
+    \begin{itemize}
+        \item Euler $\phi$ function.
+        \item $\tau(n)$, the counting function. It takes a positive integer and counts the number of positive divisors of $n$. \[\tau(n) = \sum_{d\mid n} 1\]
+        \item $\sigma(n)$, the sum of divisors function. It is the sum over all the positive divisors of $n$. \[\sigma(n) = \sum_{d\mid n}d\]
+    \end{itemize}
+\end{example}
+We have some properties of these functions, like \emph{multiplicative}, \emph{completely multiplicative}, \emph{additive}, \emph{completely additive}.
+
+\begin{definition}[Multiplicativity]
+    An arithmetic function $f$ is \ul{multiplicative} if
+    \begin{align*}
+        f(mn) & = f(m)f(n)\quad \text{whenever }(m, n) = 1
+        \intertext{$f$ is said to be \ul{totally or completely multiplicative} if }
+        f(mn) & = f(m)f(n)\quad \forall m, n\in\ZZ_+
+    \end{align*}
+    regardless of coprimality.
+\end{definition}
+
+If $f$ is multiplicative and $n_1, \dots, n_k$ are positive pairwise coprime integers, then \[f(n_1\dots n_k) = f(n_1)f(n_2)\dots f(n_k).\]
+
+A particular case that is useful is when we write
+\[n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}\]
+so that assuming multiplicativity, we have that
+\[f(n) = f(p_1^{e_1}) f(p_2^{e_2}) \cdots f(p_k^{e_k})\]
+A common type of arithmetic function is a summatory function, namely a function $f$ of the form
+\[f(n) = \sum_{d\mid n} g(d), \quad \text{where $g$ is some arithmetic function.}\]
+
+\emph{Food for thought:} how special are summatory functions within the set of all arithmetic functions?
+
+A special property of summatory functions is that they ``inherit multiplicativity''.
+\begin{lemma}
+    If $g$ is a multiplicative function, and \[f(n) = \sum_{d\mid n}g(d)\quad \forall n,\] then $f$ itself is multiplicative.
+\end{lemma}
+
+\begin{proof}
+    Suppose $m, n\in \ZZ_+$ are coprime positive integers.
+
+    The divisors $d$ of $mn$ are the products $a\cdot b$ where $a\mid m$ and $b\mid n$. Each such pair $a, b$ yields a uniquely determined produce $d = a\cdot b$. Conversely, since $(m, n) = 1$, each divisor $d$ of $mn$ determines a unique divisor $a=\gcd(d, m)$ and $b = \gcd(d, n)$ so that $d = a\cdot b$.
+
+    Thus there is a \emph{bijection} between divisors of $mn$ and $m, n$ separately
+    \[d\mid mn \longleftrightarrow (a\mid m, b\mid n)\]
+    Thus we have
+    \begin{align*}
+        f(m\cdot n) & = \sum_{d\mid mn}g(d)                                              \\
+                    & = \sum_{a\mid m}\sum_{b\mid n}g(ab)                                \\
+                    & = \sum_{a\mid m}\sum_{b\mid n}g(a)g(b)                             \\
+                    & = \left(\sum_{a\mid m} g(a)\right) \left(\sum_{b\mid n}g(b)\right)
+        = f(m)\cdot f(n)
+    \end{align*}
+    Thus completes the proof that $f$ is multiplicative.
+\end{proof}
+
+\recall The functions introduced earlier
+\[\tau(n) = \sum_{d\mid n} 1\qquad \sigma(n) = \sum_{d\mid n}d\]
+So $\tau$ is the summatory function of the constant $1$ functions, and $\sigma$ is the summatory function of the identity function. We know that the constant $1$ function and the identity function are both completely multiplicative, so $\sigma$ and $\tau$ are multiplicative functions.
+
+The implication of which is that it suffices to apply $\tau$ and $\sigma$ on prime powers and multiply.
+
+Let $p$ be a prime. Then
+\begin{align*}
+    \tau(p^e)   & = e + 1\quad  \text{(from $p^0$ to $p^e$)}.          \\
+    \intertext{We also have}
+    \sigma(p^e) & = 1 + p + p^2 + \cdots + p^e = \frac{p^{e+1}-1}{p-1}
+\end{align*}
+Therefore, if $n=p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k}$, then
+\begin{align*}
+    \tau(n)   & = \prod_{i=1}^k (e_i + 1)                                 \\
+    \sigma(n) & = \prod_{i=1}^k \left(\frac{p_i^{e_i+1}-1}{p_i-1}\right).
+\end{align*}
+\begin{remark}
+    There are higher order divisor functions
+    \[\sigma_k(n) = \sum_{d\mid n}d^k\]
+    so $\sigma_0 = \tau, \sigma_1 = \sigma, \dots$
+\end{remark}
+
+\subsection{Review of \texorpdfstring{$\ZZ/n\ZZ$}{Z/nZ} and its units}
+
+\begin{definition}[Modular Congruence]
+    If $a, b, m\in \ZZ$, $m\neq 0$, we say that \ul{$a$ is congruent to $b$ modulo $m$} if $m\mid b-a$. We write
+    \begin{equation*}
+        a\equiv b\mod{m}, \text{ or more simply } a\equiv b\ (m)
+    \end{equation*}
+\end{definition}
+Congruence mod $m$ is an equivalence relation on $\ZZ$. If $a\in \ZZ$, $\overline{a}$ denotes the set of integers congruent to $a\mod m$, i.e. $\overline{a} = \{a + km \mid k\in \ZZ\}$.
+
+\begin{definition}[$\ZZ/m\ZZ$, Residues mod $m$]
+    The set of congruence classes mod $m$ is denoted $\ZZ/m\ZZ$. This is a quotient ring of the ring of integers $\ZZ$.
+
+    If $\overline{a}_1, \overline{a}_2, \dots, \overline{a}_m$ form a complete set of congruence classes mod $m$, then the set of integers $\{a_1, a_2, \dots, a_m\}$ is called a \ul{complete set of residues mod $m$}.
+\end{definition}
+
+$\ZZ/m\ZZ$ can be endowed with the structure of a commutative ring by setting
+\begin{align*}
+    \overline{a} + \overline{b}               & = \overline{a + b} \\
+    \text{and }\overline{a}\cdot \overline{b} & = \overline{ab},
+\end{align*}
+and proving that this is well-defined as ring operations.
+
+\begin{proposition}
+    The set of units in $\ZZ/m\ZZ$ is exactly
+    \[\{\overline{a}\mid (a, m) = 1\}\]
+\end{proposition}
+\begin{proof}
+    Let $\overline{a}\in \ZZ/m\ZZ$, then
+    \begin{align*}
+                              & \exists \overline{b}\in \ZZ/m\ZZ\text{ s.t. }\overline{b}\cdot \overline{a}\equiv 1\mod m \\
+        \Longleftrightarrow\  & \exists b, n\in \ZZ\text{ s.t. } ba - mn = 1                                              \\
+        \intertext{Then by B\'ezout's identity...}
+        \Longleftrightarrow\  & (a, m) = 1
+    \end{align*}
+\end{proof}
+
+\subsection{The Euler \texorpdfstring{$\phi$}{phi} Function}
+For $n\in \ZZ_+$, $\phi(n)$ is defined to be the number of integers $1\leq m\leq n$ coprime to $n$.
+\begin{example}
+    We have some examples of the Euler $\phi$ functions:
+    \begin{align*}
+        \phi(1)   & = 1                                                                 \\
+        \phi(p)   & = p-1 \text{ for any prime $p$}
+        \intertext{Let $e\geq 1$, }
+        \phi(p^e) & = p^e-p^{e-1} \text{ for prime powers, we exclude multiples of $p$}
+    \end{align*}
+\end{example}
+
+\emph{Wouldn't be great if $\phi$ were multiplicative? It is!}
+\begin{theorem}
+    If $(m,n) = 1$, then $\phi(mn) = \phi(m)\phi(n)$.
+\end{theorem}
+\begin{proof}
+    By the Chinese Remainder Theorem\footnote{This is an easy way to prove this assuming Math 1530 (Abstract Algebra). There is another way to prove this with one hand tied behind the back, it just takes more mental muscle to do. }, $\ZZ/mn\ZZ\cong \ZZ/m\ZZ\times \ZZ/n\ZZ$ if $(m, n) = 1$.
+
+    Taking the unit groups on both sides, we have
+    \[(\ZZ/mn\ZZ)^\times \cong (\ZZ/m\ZZ)^\times \times (\ZZ/n\ZZ)^\times\]
+    and the Euler $\phi$ function is simply measuring the order of said unit groups ($\phi(n) = \left|(\ZZ/n\ZZ)^\times\right|$).
+\end{proof}
+
+Here is an important fact about th Euler $\phi$ function:
+\begin{proposition}
+    We have
+    \begin{equation*}
+        \sum_{d\mid n}\phi(d) = n.
+    \end{equation*}
+\end{proposition}
+\begin{proof}\emph{(1: a cute, snazzy proof)}
+    Consider the $n$ rational numbers
+    \[\frac{1}{n}, \frac{2}{n}, \dots, \frac{n-1}{n}, \frac{n}{n} = 1\]
+    and reduce all to lowest terms so that the numerator and denominator are coprime.
+
+    Q: Given a positive divisor $d$ of $n$, how many fractions have $d$ as the denominator?
+
+    A: We have exactly $\phi(d)$ of them.
+
+    Conversely, every denominator $d$ is certainly a divisor of $n$. So we conclude that $\displaystyle n = \sum_{d\mid n}\phi(d)$.
+\end{proof}
+\begin{proof}\emph{(2: using what we've learnt)}
+    We use the fact that $\phi$ is multiplicative, and that this function is a summatory function of $\phi$, so this function itself is multiplicative. We can decompose this into prime powers. So it suffices to show this for prime powers.
+
+    Let $n = p^k$. Let
+    \[f(n) = \sum_[d\mid n]\phi(d).\]
+    Then we have
+    \begin{align*}
+        f(p^k) = \sum_{d\mid p^k} \phi(d) & = 1 + (p-1) + (p^2 - p) + \dots + (p^k-p^{k-1})
+        \intertext{which is a telescoping sum which leaves}
+                                          & = p^k
+    \end{align*}
+    which is as intended. 
+\end{proof}
