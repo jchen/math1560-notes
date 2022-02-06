@@ -131,7 +131,7 @@ We're nearly ready to prove unique factorization, after a lemma:
 
 \begin{proof}
     (of \cref{unique-factorization}, that $\ZZ$ is a UFD). Recall that for a nonzero $n\in \ZZ$, we write
-    \[n = (-1)^\varepsilon \prod_{p}p^a(p), \text{where }\varepsilon = 0\text{ or }1\text{ and }a(p)\geq 0\]
+    \[n = (-1)^\varepsilon \prod_{p}p^{a(p)}, \text{where }\varepsilon = 0\text{ or }1\text{ and }a(p)\geq 0\]
     Given a positive prime $q$, we take $\ord_q$ of both sides. By \cref{additive-orders}, this yields
     \[\ord_q n = \varepsilon\cdot \ord_q (-1) + \sigma_p a(p)\ord_q(p)\]
     Since we have that $\ord_q(-1) = 0$ and $\ord_q(p) = 0, \forall p\neq q$, we've uniquely determined $a(q)$ since $\ord_q(n) = a(q)$. That is, $a(q)$ is \emph{uniquely determined} for all primes $q$. So $n$ has a \emph{unique} prime factorization.
