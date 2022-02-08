@@ -1,0 +1,192 @@
+%!TEX root = ../notes.tex
+\section{February 8, 2022}
+
+\subsection{Dirichlet Convolutions}
+
+\begin{definition}[Dirichlet Convolution]
+    Let $f, g$ be arithmetic functions. Then the \ul{Dirichlet convolution/product} of $g$ and $g$ it
+    \begin{align*}
+        (f * g)(n) : & = \sum_{d_1d_2=n}f(d_1)g(d_2) \\
+                     & = \sum_{d\mid n}f(d) g(n/d)
+    \end{align*}
+\end{definition}
+
+We do check that this has properties that we want it to have, like associativity:
+\begin{align*}
+    ((f * g) * h)(n) & = (f * (g * h))(n)                      \\
+                     & = \sum_{d_1d_2d_3=n} f(d_1)g(d_2)h(d_3)
+\end{align*}
+It is also clearly commutative.
+
+We also have that this product has a multiplicative identity.
+
+\begin{definition}
+    Let $I : \ZZ_+\to \{0, 1\}$ be given by
+    \[I(n) = \begin{cases}
+            1 & \text{if } n = 1 \\
+            0 & \text{otherwise}
+        \end{cases}\]
+    Then $I$ is an identity for $*$, in the sense that $f * I = I * f = f$.
+\end{definition}
+
+\begin{lemma}
+    If $f$ is an arithmetic function such that $f(1)\neq 0$, then there exists an arithmetic function $g$ such that $f * g = I$.
+
+    It is given recursively by
+    \begin{align*}
+        g(1) & = \frac{1}{f(1)}                                         \\
+        g(n) & = -\frac{1}{f(1)}\cdot \sum_{d\mid n, d < n} g(d) f(n/d)
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    We want to show that given $g$ and $g$ defined as above, we have that $f * g = I$.
+
+    $n=1$: \[g(1)\cdot f(1) = \frac{1}{f(1)}f(1) = 1\]
+
+    $n > 1$: \begin{align*}
+        \sum_{d\mid n}g(d) f(n/d) & = g(n)\cdot f(1) + \sum_{d\mid n, n<n}g(d) f(n/d)                   \\
+                                  & = -\frac{1}{f(1)}\cdot \sum_{d\mid n, d < n} g(d) f(n/d) \cdot f(1)
+        + \sum_{d\mid n, n<n}g(d) f(n/d)                                                                \\
+                                  & = 0
+    \end{align*}
+    So $g$ is indeed an inverse of $f$ since they produce the identity function $I$.
+\end{proof}
+
+\subsection{M\"obius Inversion}
+The motivation of this is: given a summatory function of multiplicative functions, can we recover the multiplicative function?
+\begin{definition}[M\"obius $\mu$ Function]
+    We define $\mu : \ZZ_+ \to \{-1, 0, 1\}$ given by
+    \[\mu(n) = \begin{cases}
+            (-1)^k & \text{if $n = p_1p_2\dots p_k$ if $p_i$ are pairwise distinct primes} \\
+            0      & \text{otherwise}
+        \end{cases}\]
+    \emph{(We note that $\mu(1) = 1$.)}
+\end{definition}
+
+\begin{lemma}
+    $\mu$ is a multiplicative function.
+\end{lemma}
+\begin{proof}
+    Let $m, n\in\ZZ_+$ such that $(m, n) = 1$. We write
+    \begin{align*}
+        m & = p_1^{e_1}p_2^{e_2}\cdots p_k^{e_k} \\
+        n & = q_1^{f_1}q_2^{f_2}\cdots q_l^{f_l} \\
+    \end{align*}
+    \begin{description}
+        \item[Case 1]
+            Some exponent $e_i$ or $f_i \geq 2$. Then we have that \[\mu(mn) = \mu(m)\mu(n) = 0\]
+        \item[Case 2]
+            We have that \begin{align*}
+                m & =p_1p_2\cdots p_k \\
+                n & =q_1q_2\cdots q_l
+            \end{align*}
+            where $p_i$ and $q_i$ are all pairwise distinct. Then $\mu(m) = (-1)^k$ and $\mu(n) = (-1)^l$, so $\mu(m) = \mu(n) = (-1)^{k+l}$.
+
+            Since these are coprime $(m, n) = 1$, then we have that $\mu(mn) = (-1)^{k+l}$.
+    \end{description}
+    Which is as intended, giving that $\mu$ is a multiplicative function.
+\end{proof}
+
+\begin{lemma}
+    We have the property:
+    \begin{align*}
+        \sum_{d\mid n}\mu(d) = 0 \qquad \forall n\geq 2.
+    \end{align*}
+    Which tells us that the summatory function of $\mu$ is $I$.
+\end{lemma}
+\begin{proof}
+    We define
+    \begin{align*}
+        f(n) := \sum_{d\mid n}\mu(d) \qquad \text{is multiplicative}
+    \end{align*}
+    We check this on prime powers, for prime $p$ and $e\geq 1$:
+    \begin{align*}
+        f(p^e) & = \mu(1) + \mu(p) + \mu(p^2) + \cdots + \mu(p^e) \\
+               & = 1 - 1 + 0 + \cdots + 0 = 0
+    \end{align*}
+    so we're done since $f$ is multiplicative and is $0$ for all power of primes.
+\end{proof}
+
+\begin{lemma}
+    Let $i: \ZZ_+\to \{1\}$ be the constant $1$ function.
+    \[i * \mu = \mu * i = I\]
+\end{lemma}
+\begin{proof} In the case of $n=1$, we have $i(1)\mu(1) = 1$.
+
+    For $n > 1$, we have $(i * \mu)(n) = \displaystyle \sum_{d\mid n}\mu(d) = 0$ from above.
+\end{proof}
+
+We see here that summatory functions can be seen as Dirichlet products: the summatory function $F$ of $f$ is $F = f * i$. What we said about summatory functions being multiplicative boils down to Dirichlet convolutions preserving multiplicativity.
+
+\recall that summatory functions inherit multiplicativity. In fact, this holds for Dirichlet products as well. If $f, g$ are multiplicative, then so is $f * g$.
+
+The proof is parallel to the proof for summatory functions, for \cref{lemma:summatory-preserves-multiplicativity}.
+
+\begin{theorem}[M\"obius Inversion]
+    Let
+    \begin{align*}
+        F(n) & = \sum_{d\mid n} f(d)                         \\
+        \intertext{Then we have }
+        f(n) & = \sum_{d\mid n}\mu(d)\cdot F(n/d) = \mu * F.
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    $F = f * i$, then \[F * \mu = (f * i) * \mu = f * (i * \mu) = f * I = f.\]
+    which was simpler than I expected\dots
+\end{proof}
+
+\begin{corollary}\label{cor:summatory-multiplicativity-original-multiplicative}
+    If $F$ is the summatory function of $f$, and $F$ is multiplicative, then $f$ is also multiplicative, as $f = \mu * F$ and $\mu$ is multiplicative and convolutions with multiplicative functions are multiplicative.
+\end{corollary}
+\begin{corollary}
+    \Cref{cor:summatory-multiplicativity-original-multiplicative} gives another proof that $\phi$ is multiplicative, as \[\sum_{d\mid n}\phi(d) = \phi * i = \mathrm{id}.\]
+\end{corollary}
+
+\subsection{Applications of M\"obius Inversion}
+\subsubsection{Cyclotomic Polynomials}
+
+\recall the $n^\mathrm{th}$ cyclotomic polynomial $\Phi_n(x)$ is the unique irreducible polynomial in $\ZZ[x]$ dividing $x^n - 1$ but no $x^k - 1$ for $k < n$.
+
+Thus \[\Phi_n(x) = \prod_{\substack{1\leq k < n \\ (k, n) = 1}} \left(x - e^{2\pi i k / n}\right)\]
+as the roots of this polynomial are exactly the primitive $n^\mathrm{th}$ roots of unity. We have that \[\prod_{d\mid n}\Phi_d(x) = x^n - 1.\]
+By M\"obius inversion, if
+\begin{align*}
+    G(n) & = \prod_{d\mid n}g(d),
+    \intertext{then we have that}
+    g(n) & = \prod_{d\mid n}G(d)^{\mu(n/d)}
+\end{align*}
+In particular, taking $G(n) = x^n - 1$ (with particular $x\in\CC$) as an arithmetic function, we have \[\Phi_n(x) = \prod_{d\mid n}(x^d - 1)^{\mu(n/d)}\qquad (x\in \CC)\]
+
+Applying this identity for enough $x\in \CC$ yields this as an identity of polynomials.
+
+\subsubsection{Dynatomic Polynomials}
+The roots of cyclatomic polynomials are roots of unity. Dynatomic polynomials have as roots the periodic points (of certain periods) of a polynomial.
+
+\begin{definition}
+    Let $K$ be a field, and let $f\in K[x]$ of degree $d\geq 2$. Let \[f^n = \underbrace{f\circ f\circ \cdots \circ f}_{n\text{ times}}\]
+    then $P\in \overline{K}$\footnote{Algebraic numbers in field $K$, the field you get by adjoining all roots of polynomials in $K[x]$.} is said to be \ul{periodic} under $f$ if
+    \[f^n(P) = P\qquad \text{for some $n\geq 1$}\]
+\end{definition}
+\begin{example}
+    Let $f(x) = x^2 - 1$. $0$ is a period point under $f$:
+    \[0\longmapsto -1\longmapsto 0\]
+    and its \ul{period} is $2$.
+
+    \begin{remark*}
+        If $n$ is the smallest positive integer such that $f^n(p) = p$ ($p$ periodic), then we call $n$ the \ul{exact period} of $p$ under $f$.
+    \end{remark*}
+\end{example}
+\begin{definition}
+    The $n^\mathrm{th}$ dynatomic polynomial of $f$ is 
+    \[\Phi_{f,n}(x) := \prod_{d\mid n}\left(f^d(x) - x\right)^{\mu(n/d)}\]
+\end{definition}
+We hope that $\Phi_{f, n}(x)$ has as its roots the points of exact period $n$\dots This hope is dashed\dots 
+\begin{example}
+    $f(x) = x^2 - \frac{3}{4}$. 
+    \begin{align*}
+        f^2(x) - x &= \left(x - \frac{3}{2}\right)\left(1 - \frac{1}{2}\right)^3 \\
+        f(x) - x &= \left(x-\frac{3}{2}\right)\left(x + \frac{1}{2}\right)
+    \end{align*}
+    Thus \[\frac{f^2(x) - x}{f(x) - x} = \left(x + \frac{1}{2}\right)^2\]
+    But $x=-\frac{1}{2}$ is \ul{fixed} under $f$. 
+\end{example}
