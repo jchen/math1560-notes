@@ -1,0 +1,139 @@
+%!TEX root = ../notes.tex
+\section{February 10, 2022}
+
+\subsection{Congruences \emph{continued}}
+\recall that for $m\in\ZZ_+$, $a,b\in \ZZ$, the linear congruence
+\[ax\equiv b\mod{m}\]
+has a solution if and only if $(a, m)\mid b$. Unwinding this gives Bezout's identity.
+
+\textbf{Q: How do we actually find a solution?}
+
+\textbf{A:} Either guess and check; or apply the following algorithm:
+\begin{enumerate}[1)]
+    \item Divide all terms in the congruence by $d = (a, m)$.
+    \item If step $1$ yields
+          \[a'x\equiv b'\mod m'\]
+          with $(a', m') = 1$, then $d:= (a', b')$ is a \ul{unit} mod $m'$, so we can divide both sides by $d'$.
+          \[a'd'^{-1}x\equiv b'd'^{-1}\mod m'\]
+    \item Let $a''x\equiv b''\mod m$ be the result so far. We replace $b''$ by some $b''+km'$\footnote{Since made $a'$ and $m'$ coprime, we have $(a', m')=1$ so we can indeed solve congruence $a''q \equiv b''+km'$ gives noncoprime pairs.} such that $(a'', b''+km')>1$ allows us to repeat step $2$. This results in some $a'''$ such that $|a'''| < |a''|$.
+
+          Given that we repeat this process, this must eventually terminate, since the absolute values of the $a$ terms are strictly decreasing each time.
+\end{enumerate}
+\begin{example}
+    Let $10x\equiv 6\mod{14}$.
+
+    \begin{enumerate}[1)]
+        \item $(a, m) = (10, 14) = 2$ so we divide through by $2$. \[5x\equiv 3\mod{7}\]
+        \item Irrelevant since $(5, 3)$ are coprime.
+        \item Consider integers of form $3+7k$, and see which are divisible by $5$. We can take $k=1$. We get
+              \[5x\equiv 10\mod 7\]
+        \item[2)] Divide by $(5, 10) = 5$ so we have $x\equiv 2\mod{7}$.
+    \end{enumerate}
+\end{example}
+
+\subsection{Simultaneous Linear Congruences}
+\recall the CRT/Sun-tzu's theorem.
+\begin{theorem}[Sun-tzu's Theorem / Chinese Remainder Theorem]
+    Suppose that $m = m_1m_2\cdots m_t$ with $(m_i, m_j) = 1 \forall i\neq j$.
+
+    Let $b_1, b_2\dots, b_t$ be integers, and consider the system of congruences
+    \begin{align}
+        x_1 & \equiv b_1\mod{m_1}        \label{eqn:crt-congruences} \tag{*} \\
+        x_2 & \equiv b_2\mod{m_2} \nonumber                                  \\
+            & \qquad \vdots \nonumber                                        \\
+        x_t & \equiv b_t\mod{m_t} \nonumber
+    \end{align}
+    Then this system has a unique solution modulo $m$\footnote{That is, we have at least one solution, and we can shift it by \emph{any} multiple of $m$.}.
+\end{theorem}
+\begin{proof}
+    Let $n_i = m_1m_2\cdots \cancel{m_i}\cdots m_t = \frac{m}{m_i}$ for each $i$. Since $m_i$ is coprime to $m_j,\ \forall j\neq i$, we have $(n_i, m_i) = 1 \forall i$. Then, there exists solutions $r_i, s_i\in \ZZ$ such that
+    \[r_im_i + s_in_i = 1\]
+    Let $e_i = s_in_i$. Then for each $i$,
+    \[e_i\equiv 1\mod m_i\]
+    and $e_i\equiv 0\mod m_j,\ \forall j\neq i$.
+
+    Our goal is to ultimately show
+    \[\ZZ/m\ZZ\simeq \ZZ/m_1\ZZ\times \ZZ/m_2\ZZ\times\cdots\times\ZZ/m_t\ZZ\]
+    with each $e_i$ generating the ``$\ZZ/m_i\ZZ$ piece''.
+
+    Set \[x_0 = \sum_{i=1}^t b_ie_i\] so that $x_0\equiv b_i\pmod{m_i}\ \forall i$, so $x_0$ is a solution to \cref{eqn:crt-congruences}.
+
+    Suppose $x_1$ is another solution. Then we have
+    \[x_1-x_0\equiv 0\mod{m_i}\ \forall i, 1\leq i\leq t\]
+    Since the $m_i$ are pairwise coprime, we get $m\mid x_1-x_0$.
+\end{proof}
+
+\subsection{Structure of Unit Groups}
+\recall in Math 1530, we learned Lagrange's theorem
+\begin{theorem}[Lagrange's Theorem]
+    If $G$ is a finite group, then for every subgroup $H$ of $G$, we have $|H| \bigm\vert |G|$.
+\end{theorem}
+\begin{corollary}
+    If $G$ is a finite group of order $n$, and $a\in G$, then $a^n = e$, where $e$ is the identity of the group.
+\end{corollary}
+We've seen that $\left\vert U(m) \right\vert = \phi(m)$.\footnote{For notation, we use $U(m) := (\ZZ/m\ZZ)^\times$.} Applying Lagrange's theorem, we have Euler's theorem:
+\begin{theorem}[Euler's Theorem]\label{thm:eulers-thm}
+    For any $a\in \ZZ$ with $(a, m) = 1$, we have $a^{\phi(m)}\equiv 1\mod{m}$.
+\end{theorem}
+\begin{definition}
+    A subset $R$ of $\ZZ$ is said to be a \ul{reduced set of residues mod $m$} if $R$ contains exactly one element from each of the $\phi(m)$ congruence classes that are units mod $m$.
+\end{definition}
+\begin{proof}[Alternate proof of \cref{thm:eulers-thm}]
+    Let $R = \{r_1, r_2, \dots, r_{\phi(m)}\}$ be a reduced set of residues mod $m$. If $(a, m) = 1$, then $aR$ is also a reduced set of residues mod $m$. Thus, if $x_1, x_2, \dots, x_{\phi(m)}\in aR$ (pairwise distinct), then
+    \begin{align*}
+        x_1x_2\cdots x_{\phi(m)}               & \equiv r_1r_2\cdots r_{\phi(m)}\mod{m}  \\
+        (ar_1)(ar_2)\cdots (ar_{\phi(m)})      & \equiv r_1r_2\cdots r_{\phi(m)}\mod{m}  \\
+        a^{\phi(m)} (r_1r_2\cdots r_{\phi(m)}) & \equiv r_1r_2\cdots r_{\phi(m)} \mod{m} \\
+        \intertext{since all the $r_i$ are units mod $m$, we divide through}
+        a^{\phi(m)}                            & \equiv 1\mod{m}
+    \end{align*}
+    Which is as desired.
+\end{proof}
+
+We'll be studying roots of polynomials over $\ZZ/m\ZZ$, especially polynomials of the form $x^d - a$.
+
+By Sun-tzu's theorem, the case of $m$ being a prime power is especially important. This turns out to have a lot to do with the case that $m=p$ is a prime itself.
+
+First something further \emph{afield}:
+\begin{proposition}\label{prop:d-roots-in-fp}
+    If $p$ is a prime and $p\nmid d$ for $d\in\ZZ_+$, then the polynomial
+    \[x^d - a\in (\ZZ/p\ZZ)[x],\qquad a\not\equiv 0\mod{p}\]
+    has exactly $d$ roots in some extension of $\FF_p$.
+
+    Conversely, if $p\mid d$, then there are fewer than $d$ roots in any extension of $\FF_p = \ZZ/p\ZZ$.
+\end{proposition}
+
+The proof uses the following proposition:
+\begin{proposition*}
+    A nonzero polynomial $f\in K[x]$ is \ul{separable} if and only if it is relatively prime to its derivative $f'$. (A separable polynomial whose roots in its algebraic closure $\overline{K}$ whose roots are all distinct).
+\end{proposition*}
+\begin{proof}
+    ~\begin{description}
+        \item[$\Rightarrow$ Right Direction:]
+        Suppose $f$ is separable and $\alpha$ be any root of $f$. Then $f(x) = (x-\alpha)h(x)$, where $h(\alpha)\neq 0$ since $\alpha$ is a non-repeated root. 
+        
+        We have $f'(\alpha) = h(\alpha)\neq 0$, so $\alpha$ is not a root of $f'$. Thus $f$ and $f'$ have no common roots, so they are coprime. 
+
+        \item[$\Leftarrow$ Left Direction:]
+        Prove by contrapositive. Suppose $f$ is not separable. i.e. it has some repeated root which we call $\alpha$. 
+        
+        Then $f(x) = (x-\alpha)^2g(x)$, so $f'(x) = (x-\alpha)^2 g'(x) + 2(x-\alpha)g(x)$. We see that $x-\alpha$ divides both $f$ and $f'$ so $(f, f')\neq 1$. 
+    \end{description}
+    Which concludes the bidirectional. 
+\end{proof}
+\begin{proof}[Proof of \cref{prop:d-roots-in-fp}]
+    We have $f(x) = x^d - a$, $a\not\equiv 0\pmod{p}$ has $d$ distinct solutions in some extension of $\FF_p = \ZZ/p\ZZ$, because \[f'(x) = dx^{d-1}\pmod{p}\] and with $0$ as its only root but $0$ is not a root of $f$. By above we have that $f$ is separable. 
+
+    Conversely, if $p\mid d$, then 
+    \[f'(x)\equiv 0\pmod{p},\]
+    so $(f, f')\neq 1$, meaning that $f$ is not separable. 
+\end{proof}
+
+\begin{proposition}[4.1.2 of text]
+    If $p$ is a prime and if $d\mid p-1$, then the polynomial $x^d - 1\in (\ZZ/p\ZZ)[x]$ has exactly $d$ roots in $\ZZ/p\ZZ = \FF_p$. 
+\end{proposition}
+\begin{proof}
+    We know this is true in the case of $d = p-1$ because of Fermat's Little Theorem (also Euler's Theorem). 
+
+    We also note that $(x^d - 1)\mid (x^{p-1} - 1)$. Since $x^{p-1} - 1$ has all roots in the base field by FLT, $x^d - 1$ had better also retain its roots in the base field $\FF_p$ by contradiction. 
+\end{proof}
