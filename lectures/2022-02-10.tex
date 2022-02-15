@@ -110,30 +110,31 @@ The proof uses the following proposition:
 \begin{proof}
     ~\begin{description}
         \item[$\Rightarrow$ Right Direction:]
-        Suppose $f$ is separable and $\alpha$ be any root of $f$. Then $f(x) = (x-\alpha)h(x)$, where $h(\alpha)\neq 0$ since $\alpha$ is a non-repeated root. 
-        
-        We have $f'(\alpha) = h(\alpha)\neq 0$, so $\alpha$ is not a root of $f'$. Thus $f$ and $f'$ have no common roots, so they are coprime. 
+            Suppose $f$ is separable and $\alpha$ be any root of $f$. Then $f(x) = (x-\alpha)h(x)$, where $h(\alpha)\neq 0$ since $\alpha$ is a non-repeated root.
+
+            We have $f'(\alpha) = h(\alpha)\neq 0$, so $\alpha$ is not a root of $f'$. Thus $f$ and $f'$ have no common roots, so they are coprime.
 
         \item[$\Leftarrow$ Left Direction:]
-        Prove by contrapositive. Suppose $f$ is not separable. i.e. it has some repeated root which we call $\alpha$. 
-        
-        Then $f(x) = (x-\alpha)^2g(x)$, so $f'(x) = (x-\alpha)^2 g'(x) + 2(x-\alpha)g(x)$. We see that $x-\alpha$ divides both $f$ and $f'$ so $(f, f')\neq 1$. 
+            Prove by contrapositive. Suppose $f$ is not separable. i.e. it has some repeated root which we call $\alpha$.
+
+            Then $f(x) = (x-\alpha)^2g(x)$, so $f'(x) = (x-\alpha)^2 g'(x) + 2(x-\alpha)g(x)$. We see that $x-\alpha$ divides both $f$ and $f'$ so $(f, f')\neq 1$.
     \end{description}
-    Which concludes the bidirectional. 
+    Which concludes the bidirectional.
 \end{proof}
 \begin{proof}[Proof of \cref{prop:d-roots-in-fp}]
-    We have $f(x) = x^d - a$, $a\not\equiv 0\pmod{p}$ has $d$ distinct solutions in some extension of $\FF_p = \ZZ/p\ZZ$, because \[f'(x) = dx^{d-1}\pmod{p}\] and with $0$ as its only root but $0$ is not a root of $f$. By above we have that $f$ is separable. 
+    We have $f(x) = x^d - a$, $a\not\equiv 0\pmod{p}$ has $d$ distinct solutions in some extension of $\FF_p = \ZZ/p\ZZ$, because \[f'(x) = dx^{d-1}\pmod{p}\] and with $0$ as its only root but $0$ is not a root of $f$. By above we have that $f$ is separable.
 
-    Conversely, if $p\mid d$, then 
+    Conversely, if $p\mid d$, then
     \[f'(x)\equiv 0\pmod{p},\]
-    so $(f, f')\neq 1$, meaning that $f$ is not separable. 
+    so $(f, f')\neq 1$, meaning that $f$ is not separable.
 \end{proof}
 
-\begin{proposition}[4.1.2 of text]
-    If $p$ is a prime and if $d\mid p-1$, then the polynomial $x^d - 1\in (\ZZ/p\ZZ)[x]$ has exactly $d$ roots in $\ZZ/p\ZZ = \FF_p$. 
+\begin{proposition}[4.1.2 of text]\label{prop:d-roots}
+    If $p$ is a prime and if $d\mid p-1$, then the polynomial
+    \[x^{d-1}\in (\ZZ/p\ZZ)[x]\] has exactly $d$ roots in the base field $\FF_p = \ZZ/p\ZZ$.
 \end{proposition}
 \begin{proof}
-    We know this is true in the case of $d = p-1$ because of Fermat's Little Theorem (also Euler's Theorem). 
+    We know this is true in the case of $d = p-1$ because of Fermat's Little Theorem (also Euler's Theorem).
 
-    We also note that $(x^d - 1)\mid (x^{p-1} - 1)$. Since $x^{p-1} - 1$ has all roots in the base field by FLT, $x^d - 1$ had better also retain its roots in the base field $\FF_p$ by contradiction. 
+    We also note that $(x^d - 1)\mid (x^{p-1} - 1)$. Since $x^{p-1} - 1$ has all roots in the base field by FLT, $x^d - 1$ had better also retain its roots in the base field $\FF_p$ by contradiction.
 \end{proof}

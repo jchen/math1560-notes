@@ -398,3 +398,4 @@
 
 % From Math1560
 \DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\id}{id}

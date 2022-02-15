@@ -1,0 +1,118 @@
+%!TEX root = ../notes.tex
+\section{February 15, 2022}
+
+\subsection{Cyclicity of Groups}
+\subsubsection{mod odd \texorpdfstring{$p$}{p}}
+\recall from last class, we had \cref{prop:d-roots}:
+\begin{proposition*}
+    If $p$ is a prime and if $d\mid p-1$, then the polynomial
+    \[x^{d-1}\in (\ZZ/p\ZZ)[x]\] has exactly $d$ roots in the base field $\FF_p = \ZZ/p\ZZ$.
+\end{proposition*}
+\begin{corollary}\label{cor:generators-in-p}
+    $G:=(\ZZ/p\ZZ)^\times$ is cyclic.
+\end{corollary}
+\begin{proof}
+    For $d\mid (p-1)$, we write $\psi(d)$ for the number of elements of $G$ having order $d$.
+
+    Proposition 2 implies that\footnote{We throw in Lagrange's theorem, and essentially count the number of solutions to $x^d\equiv 1$.}
+    \[\sum_{c\mid d}\psi(c) = d\qquad(\psi* i = \id, \psi = \id * \mu)\]
+    M\"obius inversion gives
+    \[\psi(d) = \sum_{c\mid d}\mu(c)\frac{d}{c}.\]
+    On the other hand, we have $\id = \phi * i\Rightarrow \phi = \mu * \id$. Thus $\psi(d) = \phi(d)$ for all $d\mid (p-1)$.
+    So in particular, $\psi(p-1) = \phi(p-1)\geq 1$ for any prime $p$.
+\end{proof}
+
+\subsubsection{mod odd power \texorpdfstring{$p^e$}{p\^e}}
+\begin{theorem}\label{thm:generators-in-powers-of-p}
+    Let $p\in \ZZ_+$ be an odd prime, and let $e\geq 1$. Then $U(p^e)$ is cyclic.
+\end{theorem}
+Proof overview:
+\begin{enumerate}[1.]
+    \item Pick a primitive root mod $p$. We call it $g$ (for generator).
+    \item Show that either $g$ or $g + p$ is a primitive root mod $p^2$.
+    \item Show that if $h$ is any primitive root mod $p^2$, then $h$ is a primitive root mod $p^e$ $\forall e\geq 2$.
+\end{enumerate}
+\begin{proof}[Proof of \cref{thm:generators-in-powers-of-p}]
+    ~\begin{description}
+        \item[Step 1.] Let $g$ be a primitive root modulo $p$ given by \cref{cor:generators-in-p}.
+        \item[Step 2.]  Let $d$ be the order of $g$ mod $p^2$. Since $\phi(p^2) = p(p-1)$, we have that
+            \[d\mid p(p-1)\qquad\text{by Lagange}.\]
+            By definition of $d$,
+            \begin{align*}
+                g^d\equiv 1\mod{p^2}
+                \intertext{so we also have}
+                g^d\equiv 1\mod{p}
+            \end{align*}
+            Thus $(p-1)\mid d$ since $g$ has order $p-1$ mod $p$. Altogether, $d$ is either $p-1$ or $p(p-1)$. If $d = p(p-1)$, then we are done with step 2. So we assume the former that $d = p-1$.
+
+            Let $h = g + p$. We know that $h$ is a primitive root mod $p$, so we do the same [yoga] as above and conclude that the order of $h$ mod $p^2$ is either $p-1$ or $p(p-1)$.
+
+            By our new hypothesis,
+            \[g^{p-1}\equiv 1\pmod{p^2}\]
+            so modulo $p^2$, we have
+            \begin{align*}
+                h^{p-1} = (g+p)^{p-1} & = g^{p-1} + (p-1)g^{p-2}p + \cdots + p^{p-1}
+                \intertext{Modulo $p^2$, the only terms that survive are (expand and all $p^2$ terms die):}
+                                      & \equiv 1 - pg^{p-2}\pmod{p^2}
+            \end{align*}
+            But $p\nmid g$, so $pg^{p-2}\not\equiv 0\mod{p}$, and hence $h^{p-1}\not\equiv 1\mod{p^2}$. Thus the order of $h$ mod $p^2$ is $p(p-1)$, so $h$ generates $U(p^2)$.
+
+            So we are done with step $2$. If $g$ is a primitive root mod $p$, then either $g$ or $g + p$ is a primitive root mod $p^2$.
+        \item[Step 3.] We wish to show that a primitive root mod $p^2$ is also a primitive root mod $p^e$ $\forall e\geq 2$. We induct on $e$.
+
+            Let $h$ be a primitive root mod $p^e$ for some fixed $e\geq 2$. Let $d$ be the order of $h$ mod $p^{e+1}$. By Lagange, we have that $d\mid \phi(p^{e+1}) = p^e(p-1)$, and from step $2$,
+            \[\phi(p^e) = p^{e-1}(p-1)\mid d\]
+            Hence $d = p^e(p-1)$ or $p^{e-1}(p-1)$. If it's the former then we are done, so we assume latter.
+
+            We want to show that
+            \[h^{p^{e-1}(p-1)}\not\equiv 1\mod{p^{e+1}}\]
+            implying that $d = p^e(p-1)$ after all.
+
+            Since $h$ has order $\phi(p^e) = p^{e-1}(p-1)$ in $U(p^e)$, we have \begin{equation}
+                h^{p^{e-2}(p-1)}\not\equiv 1\mod{p^e} \label{eqn:5.2-1}\tag{$\star$}
+            \end{equation} However,
+            \begin{equation}
+                h^{p^{e-2}(p-1)}\equiv 1\mod{p^{e-1}} \label{eqn:5.2-2}\tag{$\star\star$}
+            \end{equation}
+            Combining \cref{eqn:5.2-1} and \cref{eqn:5.2-2} yields
+            \[h^{p^{e-2}(p-1)}=1+kp^{e-1}\]
+            where $p\nmid k$. Therefore, we have
+            \begin{align*}
+                h^{p^{e-1}(p-1)} & = (1+kp^{e-1})^p                                    \\
+                                 & = 1 + pkp^{e-1} + \binom{p}{2}k^2p^{2e-2} + \cdots
+                \intertext{Subsequent terms are all divisible by $p^{3e-3}=(p^{e-1})^3$, and hence divisible by $p^{e+1}$ as $e(e-1)\geq 2+1\ \forall e\geq 2$. Thus
+                }
+                h^{p^{e-1}(p-1)} & = 1 + kp^e + \frac{1}{2}k^2p^{2e-1}(p-1)\mod{p^e+1}
+            \end{align*}
+            $p$ is odd, so
+            \[\frac{1}{2}k^2p^{2e-1}(p-1)\]
+            is divisible by $p^{e+1}$, since $2e-1\geq e+1$. Thus
+            \[h^{p^{e-1}(p-1)} \equiv 1 + kp^e \mod{p^e+1}\]
+            Since $p\nmid k$, we get that $kp^e\not\equiv 0$ so
+            \[h^{p^{e-1}(p-1)} \not\equiv 1 \mod{p^e+1}\]
+            This proves that $d = p^e(p-1)$, which is to say that $h$ is a primitive root mod $p^{e+1}$.
+    \end{description}
+    Altogether, we have that $U(p^e)$ is cyclic.
+\end{proof}
+
+\subsubsection{mod powers of 2}
+\begin{theorem}
+    $U(2^e)$ is cyclic iff $e = 1$ or $e = 2$.
+\end{theorem}
+\begin{proof}
+    Clearly $U(2)$ and $U(4)$ are cyclic\footnote{We don't have much choice since there is only one trivial group and one group of order $2$, both cyclic.}.
+
+    We show that $U(2^e)$ is \emph{not} cyclic for all $e\geq 3$. Notice: it suffices to show that $U(8)$ is not cyclic, since we can find group homomorphisms down powers of $2$.
+    \[U(8) = \{\overline{1}, \overline{3}, \overline{5}, \overline{7}\}\]
+    and $\overline{1}^2 = \overline{3}^2 = \overline{5}^2 = \overline{7}^2\mod{8}$.
+\end{proof}
+
+\subsection{Classification of all cyclic unit groups}
+\begin{corollary}
+    $U(m)$ is cyclic if and only if $m = 1, 2, 4, p^e$ or $2p^e$ for some odd prime $p$.
+\end{corollary}
+\begin{proof}
+    Recall that a product $G$ of finite cyclic groups $G_1$ and $G_2$ is cyclic iff $(|G_1|, |G_2|) = 1$.\footnote{Secretly, Chinese Remainder Theorem.} On the other hand, $\phi(m)$ is even $\forall m\geq 3$. So only one of $G_1$ and $G_2$ needs odd power.
+
+    Combined with our structure theorems on $U(p^e)$ for primes $p$, this proves the corollary since these are the only possibilities.
+\end{proof}
