@@ -1,0 +1,183 @@
+%!TEX root = ../notes.tex
+\section{February 17, 2022}
+\subsection{Special Integers}
+\subsubsection{Fermat and Mersenne Primes}
+We make the observation that many small primes are of the form $2^m\pm 1$ for some natural number m, for example
+\[3, 5, 7, 17, 31\]
+We deal with the $+1$ and $-1$ cases separately.
+\begin{lemma}
+	If $2^m + 1$ is prime, then $m = 2^n$ for some $n\geq 0$.
+\end{lemma}
+\begin{proof}
+	We show the contrapositive. Suppose $m$ is not a power of $2$. We write $m=2^n\cdot q$ for some odd $q>1$.
+
+	The polynomial
+	\[f(t) = t^q + 1\]
+	has $t=-1$ as a root, so
+	\[f(t) = (t+1)g(t) \quad \text{where $\deg f = q > 1$}\]
+	Thus
+	\begin{align*}
+		x^m+1 & = f(x^{2^n})                                   \\
+		      & = (x^{2^n}+1)g(x^{2^n})\text{ where $m > 2^n$}
+	\end{align*}
+	Plugging in $x=2$ gives
+	\[2^{2^n}+1\mid 2^m + 1, \text{ and }2^{2^n}+1 < 2^m+1\]
+	so $2^m+1$ is not prime.
+\end{proof}
+\begin{definition}[Fermat Numbers]
+	Numbers of the form $2^{2^n}+1$ are called \ul{Fermat numbers}.
+
+	Fermat numbers that are prime are called \ul{Fermat primes}.
+\end{definition}
+The first few Fermat numbers happen to be prime: $3, 5, 17, 257, 65537$.
+
+\begin{conjecture*}
+	Fermat conjectured that Fermat numbers are prime.
+\end{conjecture*}
+This is very false! Euler found that
+\[2^{2^5}+1 = 641\times 6700417\]
+
+We now turn to Mersenne numbers.
+
+\begin{lemma}
+	If $m>1$ and $a^m - 1$ is prime, then $a=2$ and $m$ is prime.
+\end{lemma}
+\begin{proof}
+	Suppose $m$ is composite and, so $m=nk$, $1 < k, n < m$. Then
+	\begin{align*}
+		a^m - 1 & = (a^k)^m - 1                        \\
+		        & = (a^k - 1)(a^{k(n-1)} + \cdots + 1)
+	\end{align*}
+
+	This implies that $a^m - 1$ is composite. Hence $m$ had better be prime.
+
+	Now $a^m - 1 = (a-1)(a^{m-1} + \cdots + 1)$, so we further have that $a = 2$.
+\end{proof}
+\begin{definition}[Mersenne Numbers]
+	Integers of the form $2^p - 1$ where $p$ is a prime are called \ul{Mersenne numbers}.
+
+	Mersenne numbers that are prime are called \ul{Mersenne primes}.
+\end{definition}
+There is a current ongoing search for more Mersenne primes on the internet. Currently, the largest known Mersenne prime (and largest known prime number) is
+\[M(82,589,933)\]
+That is,
+\[2^{82,589,933} - 1\]
+
+Mersenne primes are related to perfect numbers. There is a one-to-one correspondence with Mersenne primes and even perfect numbers.
+\begin{definition}[Perfect Number]
+	$n\in\ZZ_+$ is called \ul{perfect} if
+	\[n = \sum_{\substack{d\mid n \\ d < n}} d\]
+\end{definition}
+\begin{example}
+	We have
+	\begin{align*}
+		6  & = 1 + 2 + 3          \\
+		28 & = 1 + 2 + 4 + 7 + 14
+	\end{align*}
+\end{example}
+\begin{proposition}
+	If $n^{2^{p-1}}(2^p - 1)$ where $p\in \ZZ_+$, and $p, 2^p - 1$ are prime, then $n$ is perfect.
+\end{proposition}
+\begin{proof}
+	The function $\sigma(n) = \sum_{d\mid n} d$ is multiplicative. So if
+	\[n = 2^{p-1}(2^p - 1)\]
+	then
+	\[\sigma(n) = \sigma(2^{p-1})\sigma(2^p - 1).\]
+	since they are coprime. Now we also
+	\begin{align*}
+		\sigma(2^{p-1}) & = \frac{2^p - 1}{2 - 1} = 2^{p} - 1 \\
+		\sigma(2^p - 1) & = 1 + (2^p - 1) = 2^p
+	\end{align*}
+	Hence $\sigma(n) = (2^{p-1})\cdot 2^p = 2n$.
+
+	So $n$ is a perfect number.
+\end{proof}
+\begin{proposition}
+	If $n\in \ZZ_+$ is even and perfect, then $n = 2^{p-1}(2^p - 1)$ where $p$ and $2^p - 1$ are both prime.
+\end{proposition}
+\begin{proof}
+	\emph{This is a homework exercise!}
+\end{proof}
+
+It is currently conjectured that there are no odd perfect numbers.
+
+\subsubsection{Pseudoprimes and Carmichael Numbers}
+Homework 2 includes a problem for which a special case is Wilson's Theorem.
+\begin{theorem}[Wilson's Theorem]
+	If $p$ is a prime, then
+	\[(p-1)! \equiv -1\pmod{p}\]
+\end{theorem}
+The converse is also true.
+\begin{proposition}
+	If $n\in\ZZ_+$ where $n \geq 2$ is such that
+	\begin{equation}
+		(n-1)!\equiv 1\pmod{n} \tag{$*$} \label{eqn:wilson-converse}
+	\end{equation}
+	then $n$ is prime.
+\end{proposition}
+We can think of \cref{eqn:wilson-converse} as a rudimentary `primality test'.
+
+However, this is not a great primality test, because factorials are expensive to compute.
+
+Recall Fermat's little theorem.
+\begin{theorem}[Fermat's Little Theorem]
+	If $p\in \ZZ_+$ is a prime and $a\in \ZZ$, then
+	\[a^p\equiv a\mod{p}\]
+\end{theorem}
+Thus $n\in\ZZ_+$ and
+\[a^n\equiv a\mod n\]
+for some $a\in \ZZ_+$, then $n$ is composite.
+\begin{example}
+	If $a = 2$, then
+	\[2^n\not\equiv 2\mod n\Rightarrow n=2 \text{ is composite}\]
+\end{example}
+\begin{ques*}
+	We might wonder whether a converse to this holds. Disappointingly, no.
+\end{ques*}
+
+\begin{example}
+	$2^{10} = 1024 = 1\pmod{341}$, so $2^{341} = (2^{10})^34\cdot 2 = 2\mod 341$.
+
+	But $341 = 11\cdot 31$, so $341$ is composite.
+\end{example}
+\begin{definition}[Pseudoprime]
+	We call $n$ a \ul{pseudoprime} to the \ul{base $a$} if $n$ is composite and happens to satisfy
+	\[a^n\equiv a\mod n.\]
+\end{definition}
+\begin{example}
+	$341$ is a pseudoprime to the base $2$.
+\end{example}
+We might hope that if this test failed for a particular $a$, there exists some other $a$ that can test whether $n$ is composite. However, this is not the case.\footnote{We learn in life to not be too hopeful.}
+
+It is not true that given a composite $n$, there exists an $a\in \ZZ_+$ such that $n$ is not a pseudoprime to the base $a$.
+\begin{definition}[Carmichael Numers]
+	$n\in \ZZ_+$ is called a \ul{Carmichael number} if $n$ is composite and
+	\[a^n\equiv a\mod n,\quad \forall a\in \ZZ\]
+\end{definition}
+\begin{example}
+	The smallest Carmichael number is $561$.
+\end{example}
+\begin{ques*}
+	There are variants on this question? Can you have pseudoprimes that satisfy all but one base?
+\end{ques*}
+
+\begin{proposition}
+	If a composite number $n$ is \emph{not} a Carmichael number, then at least half of the congruence classes $a\in (\ZZ/n\ZZ)^\times$ are such that $n$ is \emph{not} a pseudoprime to the base $a$.
+\end{proposition}
+\begin{proof}
+	Suppose $n$ is a pseudoprime to the base:
+	\[a_1, a_2, \dots, a_r\in (\ZZ/n\ZZ)^\times\]
+	and suppose we have some $a$ such that
+	\[a^n \not\equiv a\mod n\]
+	Then for all $i$,
+	\begin{align*}
+		(a\cdot a_i)^{n-1} & = a^{n-1}a_i^{n-1}   \\
+		                   & \equiv a^{n-1}\mod n \\
+		                   & \not\equiv 1\mod n
+	\end{align*}
+	Thus $n$ is not a pseudoprime to the bases $a\cdot a_1, a\cdot a_2, \dots, a\cdot a_r$.
+\end{proof}
+\begin{remark}
+	The bases for pseudoprimes form a subgroup of the group of units.
+\end{remark}
+\todo{Someone check me on this.}
