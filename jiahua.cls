@@ -396,6 +396,10 @@
 \newcommand{\RR}{\mathbb R}
 \newcommand{\ZZ}{\mathbb Z}
 
+% For Math1530
+\DeclareMathOperator{\im}{im}
+
 % From Math1560
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\id}{id}
+\newcommand{\lege}[2]{\left(\dfrac{#1}{#2}\right)}

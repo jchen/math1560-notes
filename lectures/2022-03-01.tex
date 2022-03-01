@@ -1,0 +1,185 @@
+%!TEX root = ../notes.tex
+\section{March 1, 2022}
+\subsection{Power Residues}
+For this section, corresponds to pages 45-46 of Ireland \& Rosen are a good reference.
+\begin{definition}[Power Residue]
+    If $m, n\in \ZZ_+$ and $a\in \ZZ$ such that $(a, m) = 1$, then we say that \ul{$a$ is an $n^\mathrm{th}$ power residue} modulo $m$ if and only if the congruence
+    \begin{equation}\label{eqn:pow-residue}x^n\equiv a\mod m\end{equation}
+    has solutions.
+\end{definition}
+Given \cref{eqn:pow-residue}, we're interested in two questions:
+\begin{enumerate}[1)]
+    \item Does \cref{eqn:pow-residue} have a solution?
+    \item If yes, then how many?
+\end{enumerate}
+
+\begin{proposition}\label{prop:4.2.1}
+    If $m\in\ZZ_+$ is such that $U(m)$ is cyclic, and $a\in\ZZ$ is such that $(a, m)=1$, then
+    \[x^n\equiv a\mod m\]
+    has solutions if and only if
+    \[a^{\phi(m)/d}\equiv 1\mod m\]
+    where $d = (\phi(m), n)$.
+
+    If there are solutions, then there are exactly $d$ solutions.
+\end{proposition}
+\begin{proof}
+    Let $g$ be a primitive root mod $m$, and let
+    \[a=g^b.\]
+    Suppose $x = g^y$. Then
+    \begin{alignat*}{3}
+         &        &  & x^n    &  & \equiv a\mod m       \\
+         & \iff\  &  & g^{ny} &  & \equiv g^b\mod m     \\
+         & \iff   &  & ny     &  & \equiv b\mod \phi(m)
+    \end{alignat*}
+    This is solvable if and only if $d=(\phi(m), n)\mid b$. If there is at least one solution, then there are exactly $d$ solutions.
+
+    Now we show that $d\mid b\Leftrightarrow a^{\phi(m)/d}\equiv 1\mod m$.
+
+    Forward direction:
+    \[a^{\phi(m)/d} = g^{b\cdot \phi(m)/d} = \left(g^{\phi(m)}\right)^{b/d} = 1\mod m\]
+
+    Backward direction:
+    \[a^{\phi(m)/d}\equiv 1\mod m \Rightarrow g^{b\cdot \phi(m)/d}\equiv 1\mod m \Rightarrow \phi(m)\mid b\cdot \phi(m)/d \Rightarrow \frac{b}{d}\in\ZZ\]
+\end{proof}
+
+We can prove this using a similar group theory theorem that we can apply directly.
+\begin{theorem}\label{thm:ft-cyclic-groups}
+    Let $G$ be a cyclic group of order $n$, suppose $k\in\ZZ_+$ and $a\in G$. Then $a=b^k$ ($a$ is a $k^\mathrm{th}$ power in $G$) iff $a^{n/(k,n)} = e$ iff $x^k = a$ has $(n, k)$ solutions in $G$.
+\end{theorem}
+
+The proof of this theorem uses the following lemma:
+\begin{lemma}
+    Let $G$ be a cyclic group of order $n$ and let $H$ be a subgroup of $G$ of order $d$. Then $x\in H$ iff $x^d = e$ iff $\ord(x)\mid d$.
+\end{lemma}
+
+\begin{proof}[Proof of \cref{thm:ft-cyclic-groups}]
+    Let $H$ be a subgroup of $k^\mathrm{th}$ powers in $G$\footnote{This is indeed a subgroup. We use the fact that $G$ is Abelian.}, and let $g\in G$ be such that $G = \langle g\rangle$.
+
+    Then $H = \{g^{jk}\mid j\in \ZZ\} = \langle g^k\rangle$. Since $\ord(g^k) = \frac{n}{(k, n)}$ (\emph{exercise}), we that $|H| - \frac{n}{(k,n)}$.
+
+    Consider $\phi: G\to G$ that powers by $k$, $\phi: x\mapsto x^k$. Then $\im(\phi) = H$, so this implies that $\phi$ is a $(k, n)$-to-$1$ mapping (so gives us the number of solutions to each power, and how many $k$ powers there are).
+\end{proof}
+
+Knowing how to solve these modulo a group of units gives us ways using CRT/Sunzi's Theorem to solve mod composite numbers.
+
+We write $m = 2^ep_1^{e_1}\cdots p_r^{e_r}$ where $p_i$ are pairwise distinct odd primes. Then
+\[x^n\equiv a\mod m, \quad (a, m) = 1\]
+is solvable if and only if the system
+\begin{align*}
+    x^n & \equiv a\mod 2^e       \\
+    x^n & \equiv a\mod p_i^{e_i} \\
+        & \vdots                 \\
+    x^n & \equiv a\mod p_r^{e_r}
+\end{align*}
+is solvable.
+
+We have that $U(p_i^{e_i}), U(2), U(4)$ are all cyclic. Hence our prior discussion can be applied to those.
+
+\begin{ques*}
+    How do we solve
+    \[x^n\equiv a\mod m\]
+    where $e\geq 3$ (for powers of $2$)?
+\end{ques*}
+\begin{proposition}[4.2.2 from Text]
+    Let $a\in\ZZ$ be odd, $e\geq 3$, and consider $x^n\equiv a\mod 2^e$.
+
+    If $n$ is odd, then $a$ solution exists and is unique. If $n$ is even, $a$ solution exists if and only if $a\equiv 1\mod 4$ and $a^{2^{e-2}/d}\equiv 1\mod 2^e$ where $d = (n, 2^{e-2})$. When a solution exists, there are exactly $2d$ solutions.
+\end{proposition}
+\begin{proof}
+    \emph{Exercise to come.}
+\end{proof}
+
+\subsection{Quadratic Residues}
+Things are a lot simpler and nicer when we consider only quadratic congruences (as opposed to arbitrary residues).
+\begin{definition}[Quadratic Residue]
+    Let $a\in\ZZ$, $m\in\ZZ_+$, $(a, m) = 1$. We say that $a$ is a \ul{quadratic residue mod $m$} if the congruence
+    \begin{equation}\label{eqn:quadratic-residue}x^2\equiv a\mod m\end{equation}
+    has a solution.
+\end{definition}
+
+Conversely, if $a$ is not a quadratic residue (that is, \cref{eqn:quadratic-residue} does not have a solution), we call it a \ul{nonresidue} or a \ul{quadratic nonresidue}.
+
+We extract the consequences of previous propositions to get special cases of propositions 4.2.3 and 4.2.4 from text.
+
+\begin{enumerate}[1)]
+    \item
+          Let $p\in\ZZ_+$ be an odd prime, and suppose $a\in\ZZ$ with $p\nmid a$. Then
+          \begin{align*}
+              x^2 & \equiv a\mod p
+              \intertext{is solvable iff}
+              x^2 & \equiv a\mod p^e
+          \end{align*}
+          is solvable for all $e\geq 1$.
+    \item
+          Let $a\in\ZZ$ be odd. Then
+          \begin{align*}
+              x^2 & \equiv a\mod 8
+              \intertext{is solvable iff }
+              x^2 & \equiv a\mod 2^e
+          \end{align*}
+          is solvable for all $e\geq 3$.
+\end{enumerate}
+\begin{proposition}[5.1.1 from Text]
+    Let
+    \[m = 2^ep_1^{e_1}\cdots p_r^{e_r}\]
+    be the prime factorization of $m\in\ZZ_+$, and suppose $(a, m) = 1$.
+
+    Then
+    \begin{equation}\label{eqn:5.1.1}
+        x^2\equiv a\mod m
+    \end{equation}
+    is solvable if and only if three conditions are satisfied:
+    \begin{enumerate}[i.]
+        \item If $e = 2$, then $a\equiv 1\mod 4$.
+        \item If $e\geq 3$, then $a\equiv 1\mod 8$.
+        \item For each $i$, have
+              \[a^{(p_i-1)/2}\equiv 1\mod p_i\]
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Sunzi's theorem tells us that \cref{eqn:5.1.1} is solvable iff
+    \begin{align*}
+        x^2 & \equiv x\mod 2^e       \\
+        x^2 & \equiv a\mod p_1^{e_1} \\
+            & \vdots                 \\
+        x^2 & \equiv a\mod p_r^{e_r}
+    \end{align*}
+    are \emph{all} solvable.
+
+    First consider the first equation $x^2\equiv 1\mod 2^e$. $1$ is the only quadratic residue mod $4$ and the same thing is true mod $8$. On the other hand, black box 2 gives us $x^2\equiv a\mod 8$ is solvable iff $x^2\equiv a\mod 2^e$ for $e\geq 3$. This gives us conditions i and ii.
+
+    Now consider $x^2\equiv a\mod p_i^{e_i}$. \Cref{prop:4.2.1} gives that $x^2\equiv a\mod p_i$ is solvable iff $a^{(p_i - 1)/2}\equiv 1\mod p_i$. Black box 1 then tells us that
+    \begin{align*}
+        x^2           & \equiv a\mod p_i\quad\text{is solvable}        \\
+        \iff\quad x^2 & \equiv a\mod p_i^{e_i}\quad\text{is solvable.}
+    \end{align*}
+    which concludes our proof.
+\end{proof}
+
+\begin{remark*}
+    Studying these quadratic congruences amounts to studying them modulo primes.
+\end{remark*}
+
+\subsection{The Legendre Symbol}
+\begin{definition}[The Legendre Symbol]
+    Let $p$ be an odd prime, and let $a\in\ZZ$.
+    \[\lege{a}{p} = \begin{cases}
+            1  & \text{if $a$ is a quadratic residue mod $p$} \\
+            0  & \text{if $p\mid a$}                          \\
+            -1 & \text{otherwise}
+        \end{cases}\]
+    This symbol $\lege{a}{p}$ is called the Legendre symbol.
+\end{definition}
+
+\begin{proposition}[5.1.2 of Text]
+    ~\begin{enumerate}[(a)]
+        \item
+              \[\lege{a}{p} = a^{(p-1)/2}\mod p\]
+              This is called \emph{Euler's Criterion}.
+        \item
+              \[\lege{ab}{p} = \lege{a}{p}\cdot\lege{b}{p}\]
+              which is to say that the Legendre symbol is totally multiplicative.
+        \item If $a\equiv b\mod p$, then
+              \[\lege{a}{p} = \lege{b}{p}.\]
+    \end{enumerate}
+\end{proposition}
