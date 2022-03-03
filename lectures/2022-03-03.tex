@@ -1,0 +1,151 @@
+%!TEX root = ../notes.tex
+\section{March 3, 2022}
+\subsection{Quadratic Residues \emph{continued}}
+
+\recall \cref{defn:legendre-symbol} and \cref{prop:5.1.2} from last class (right above).
+
+We now prove the earlier proposition:
+\begin{proof}[Proof of \cref{prop:5.1.2}]
+    ~\begin{enumerate}
+        \item[(c)] is clear.
+        \item[(a)]
+            By Fermat's Little Theorem, if $p\nmid a$, we have $a^{p-1}\equiv 1\mod p$, so
+            \[(a^{(p-1)/2}+1)(a^{(p-1)/2}-1)\equiv 0\mod p\]
+            Since mod $p$ we have an integral domain, then we have that $a^{(p-1)/2}\equiv \pm 1\mod p$. We know that $a^{(p-1)/2}\equiv 1\mod p$ if and only if $a$ is a quadratic residue mod $p$,
+        \item[(b)]
+            This applies (a).
+            \[\lege{ab}{p} = (ab)^{(p-1)/2} = a^{(p-1)/2}\cdot b^{(p-1)/2} = \lege{a}{p}\lege{b}{p}\]
+    \end{enumerate}
+\end{proof}
+\begin{corollary}
+    We have some corollaries:
+    \begin{enumerate}[1)]
+        \item There are exactly $\frac{p-1}{2}$ quadratic residues and $\frac{p-1}{2}$ quadratic non-residues mod $p$.
+        \item The product of two residues is a residue, the product of a residue and a non-residue is a non-residue, and the product of a non-residue and a non-residue is a residue.
+        \item If $g$ is a primitive root modulo $p$, then
+              \[\lege{g^i}{p} = (-1)^i.\]
+        \item We have
+              \[\lege{-1}{p} = (-1)^{(p-1)/2}\]
+              which has a fancy name. This is the \emph{``First Supplemental Law of Quadratic Reciprocity''}.
+    \end{enumerate}
+\end{corollary}
+
+\subsection{Gauss's Lemma}
+We now discuss a characterization of the Legendre symbol due to Gauss.
+\begin{definition}
+    For $p\in\ZZ_+$ an odd prime,
+    \[S = \left\{-\frac{p-1}{2}, -\frac{p-3}{2}, \dots, -1, 1, 2, \dots, \frac{p-1}{2}\right\}\]
+    is called the \ul{set of least residues mod $p$}.
+\end{definition}
+
+\begin{definition}
+    Let $a\in\ZZ$ such that $p\nmid a$. Define $\mu$ to be the number of negative least residues of the integers
+    \[a, 2a, 3a, \dots, \left(\frac{p-1}{2}\right)a\]
+\end{definition}
+
+\begin{example}
+    If $p=7$ and $a=4$, then $\frac{p-1}{2} = 3$, and
+    $1\cdot 4, 2\cdot 4, 3\cdot 4$ are congruent to $-3, 1, -2$ mod $7$. Thus $\mu = 2$.
+\end{example}
+\begin{lemma}[Gauss's Lemma]
+    Let $p\in\ZZ_+$ be an odd prime and let $a\in\ZZ$ be such that $p\nmid a$. Then
+    \[\lege{a}{p} = (-1)^\mu.\]
+\end{lemma}
+\begin{proof}
+    It is convenient for us to partition the list $S$ as
+    \begin{align*}
+        P & = \{1, 2, \cdots, \frac{p-1}{2}\}    \\
+        N & = \{-1, -2, \cdots, -\frac{p-1}{2}\}
+    \end{align*}
+    so that $\mu = |aP\cap N|$\footnote{There's an abuse of notation here, but we conflate integers with their equivalence classes in $S$.}.
+
+    A key observation is that if $x, y\in P$ with $x\neq y$, then
+    \[ax\not\equiv \pm ay\mod p\]
+    for otherwise,
+    \[a \equiv \pm y\mod p\]
+    which is impossible since $x$ and $y$ are distinct elements of $P$ (positive residue classes, so not in $N$).
+
+    Thus $aP = \{\varepsilon_i i\mid 1\leq u\leq \frac{p-1}{2}\}$ for some $\varepsilon_i = \pm 1$.
+
+    Now we mimic the elementary proof of Euler's Theorem:
+    \begin{align*}
+        a^{(p-1)/2}\cdot \left(\frac{p-1}{2}\right)! & \equiv \left(\prod_{i=1}^{(p-1)/2} \varepsilon_i\right)\cdot \left(\frac{p-1}{2}\right)! \\
+        a^{(p-1)/2}                                  & \equiv \left(\prod_{i=1}^{(p-1)/2} \varepsilon_i\right)                                  \\
+                                                     & \equiv (-1)^\mu
+    \end{align*}
+    since $\mu$ is equal to the order of the set that is contributing every $-1$ as $\varepsilon_i$.
+
+    Applying \cref{prop:5.1.2} (Euler's criterion), this concludes the proof.
+\end{proof}
+We'll use this lemma to prove Quadratic Reciprocity later.
+
+We now use it to prove the \emph{Second Supplemental Law} of Quadratic Reciprocity.
+\begin{proposition}[5.1.3, the \emph{Second Supplemental Law of Quadratic Reciprocity}]
+    For $p\in\ZZ_+$ be an odd prime.
+    \[\lege{2}{p} = (-1)^{(p^2 - 1)/8}\]
+    We note $\dfrac{p^2-1}{8} = \dfrac{(p-1)(p+1)}{2\cdot 4}$. From this, it follows that we're really saying
+    \[\lege{2}{p} = \begin{cases}
+            1  & \text{when $p = \pm 1\mod 8$} \\
+            -1 & \text{when $p = \pm 3\mod 8$}
+        \end{cases}\]
+\end{proposition}
+\begin{proof}
+    We apply Gauss's Lemma with $a = 2$.
+    \[2P = \{2, 4, 6, \dots, p-1\}\]
+    First suppose that $p\equiv 1\mod 4$. Then $\frac{p-1}{2}$ is even, so
+    \[2P = \bigg\{\underbrace{2, 4, 6, \dots, \frac{p-1}{2}}_{\in P}, \underbrace{\frac{p+3}{2}, \dots, p-1}_{\in N}\bigg\}\]
+    with the first $\frac{p-1}{4}$ elements in $P$ and the last $\frac{p-1}{4}$ elements in $N$. So $\mu = |2P\cap N| = \frac{p-1}{4}$, so Gauss's Lemma gives
+    \[\lege{2}{p}
+        = (-1)^{\frac{p-1}{4}}
+        = \left((-1)^{\frac{p-1}{4}}\right)^{\frac{p+1}{2}}
+        = (-1)^{\frac{p^2-1}{8}}\]
+    since $\frac{p+1}{2}$ is odd.
+
+    Now suppose $p\equiv 3\mod 4$. Then
+    \[2P = \bigg\{\underbrace{2, 4, 6, \dots, \frac{p-3}{2}}_{\in P}, \underbrace{\frac{p+1}{2}, \dots, p-1}_{\in N}\bigg\}\]
+    The first $\frac{p-3}{4}$ elements are in $P$, and the last $\frac{p+1}{4}$ elements are in $N$. Then $\mu = \frac{p+1}{4}$, so
+    \[\lege{2}{p}
+        = (-1)^{\frac{p+1}{4}}
+        = \left((-1)^{\frac{p+1}{4}}\right)^{\frac{p-1}{2}}
+        = (-1)^{\frac{p^2-1}{8}}\]
+\end{proof}
+
+\subsection{Quadratic Reciprocity}
+\begin{theorem}[Law of Quadratic Reciprocity]
+    Let $p, q\in\ZZ_+$ be distinct odd positive primes. Then
+    \begin{equation*}
+        \lege{p}{q}\lege{q}{p} = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}
+    \end{equation*}
+    In other words,
+    \[\lege{p}{q} = \lege{q}{p}\]
+    if and only if at least one of $p, q$ is congruent to $1$ mod $4$.
+\end{theorem}
+\begin{proof}
+    \emph{coming soon!}
+\end{proof}
+
+Here's the motivation behind this: we used Euler's Criterion to easily calculate the quadratic character of some $a$ mod $p$. With Quadratic Reciprocity, we can solve the question ``If we fix odd prime $q$, for which $p$ is $q$ a quadratic residue?''
+
+\begin{example}
+    Which odd primes $p\in\ZZ_+$ have $3$ as a quadratic residue?
+
+    Suppose $p\equiv 1\mod 4$. Then
+    \[\lege{3}{p} = \lege{p}{3} = \begin{cases}
+            1  & \text{if $p\equiv 1\mod 3$}  \\
+            -1 & \text{if $p\equiv -1\mod 3$}
+        \end{cases}\]
+    Then $p\equiv 1\mod 4$ and $p\equiv 1\mod 3$ so $p\equiv 1\mod 12$ gives us $\lege{3}{p} = 1$ and $p\equiv 5\mod 12$ gives $\lege{3}{p} = -1$. ***(format)
+
+    Now suppose $p\equiv 3\mod 4$. Then
+    \[\lege{3}{p} = -\lege{p}{3} = \begin{cases}
+            1  & \text{if $p\equiv -1\mod 3$} \\
+            -1 & \text{if $p\equiv 1\mod 3$}
+        \end{cases}\]
+    Thus,
+    \begin{align*}
+        p & \equiv 11\mod 12\text{ gives }\lege{3}{p} = 1\text{, and } \\
+        p & \equiv 7\mod 12\text{ gives }\lege{3}{p} = -1
+    \end{align*}
+
+    So we conclude that $\lege{3}{p} = 1$ iff $p\equiv \pm 1\mod 12$.
+\end{example}

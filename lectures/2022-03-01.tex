@@ -161,7 +161,7 @@ We extract the consequences of previous propositions to get special cases of pro
 \end{remark*}
 
 \subsection{The Legendre Symbol}
-\begin{definition}[The Legendre Symbol]
+\begin{definition}[The Legendre Symbol]\label{defn:legendre-symbol}
     Let $p$ be an odd prime, and let $a\in\ZZ$.
     \[\lege{a}{p} = \begin{cases}
             1  & \text{if $a$ is a quadratic residue mod $p$} \\
@@ -171,8 +171,9 @@ We extract the consequences of previous propositions to get special cases of pro
     This symbol $\lege{a}{p}$ is called the Legendre symbol.
 \end{definition}
 
-\begin{proposition}[5.1.2 of Text]
-    ~\begin{enumerate}[(a)]
+\begin{proposition}[5.1.2 of Text]\label{prop:5.1.2}
+    We have the following properties of the Legendre symbol:
+    \begin{enumerate}[(a)]
         \item
               \[\lege{a}{p} = a^{(p-1)/2}\mod p\]
               This is called \emph{Euler's Criterion}.
