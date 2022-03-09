@@ -403,3 +403,4 @@
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\id}{id}
 \newcommand{\lege}[2]{\left(\dfrac{#1}{#2}\right)}
+\newcommand{\otoh}{\textsc{otoh}}

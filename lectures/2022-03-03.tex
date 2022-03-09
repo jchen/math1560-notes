@@ -47,7 +47,7 @@ We now discuss a characterization of the Legendre symbol due to Gauss.
     If $p=7$ and $a=4$, then $\frac{p-1}{2} = 3$, and
     $1\cdot 4, 2\cdot 4, 3\cdot 4$ are congruent to $-3, 1, -2$ mod $7$. Thus $\mu = 2$.
 \end{example}
-\begin{lemma}[Gauss's Lemma]
+\begin{lemma}[Gauss's Lemma]\label{lemma:gauss-lemma}
     Let $p\in\ZZ_+$ be an odd prime and let $a\in\ZZ$ be such that $p\nmid a$. Then
     \[\lege{a}{p} = (-1)^\mu.\]
 \end{lemma}
@@ -111,7 +111,7 @@ We now use it to prove the \emph{Second Supplemental Law} of Quadratic Reciproci
 \end{proof}
 
 \subsection{Quadratic Reciprocity}
-\begin{theorem}[Law of Quadratic Reciprocity]
+\begin{theorem}[Law of Quadratic Reciprocity]\label{thm:qr}
     Let $p, q\in\ZZ_+$ be distinct odd positive primes. Then
     \begin{equation*}
         \lege{p}{q}\lege{q}{p} = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}
@@ -134,7 +134,7 @@ Here's the motivation behind this: we used Euler's Criterion to easily calculate
             1  & \text{if $p\equiv 1\mod 3$}  \\
             -1 & \text{if $p\equiv -1\mod 3$}
         \end{cases}\]
-    Then $p\equiv 1\mod 4$ and $p\equiv 1\mod 3$ so $p\equiv 1\mod 12$ gives us $\lege{3}{p} = 1$ and $p\equiv 5\mod 12$ gives $\lege{3}{p} = -1$. ***(format)
+    Then $p\equiv 1\mod 4$ and $p\equiv 1\mod 3$ so $p\equiv 1\mod 12$ gives us $\lege{3}{p} = 1$ and $p\equiv 5\mod 12$ gives $\lege{3}{p} = -1$. ***(Format)
 
     Now suppose $p\equiv 3\mod 4$. Then
     \[\lege{3}{p} = -\lege{p}{3} = \begin{cases}
