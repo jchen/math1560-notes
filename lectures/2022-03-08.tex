@@ -1,7 +1,7 @@
 %!TEX root = ../notes.tex
 \section{March 8, 2022}
 \subsection{Legendre Symbol \emph{continued}}
-\begin{example}
+\begin{example}\label{example:legendre-symbol}
     Determine if $219$ is a quadratic residue mod $383$ (we note that $383$ is a prime).
     \begin{align*}
         \lege{219}{383} & = \lege{3}{383}\cdot\lege{73}{383}    \\
@@ -90,7 +90,7 @@ Recall \cref{thm:qr}:
 
 \subsection{Jacobi Symbol}
 The Jacobi symbol generalizes the Legendre symbol.
-\begin{definition}
+\begin{definition}[Jacobi Symbol]
     Let $b$ be an odd positive integer and let $a\in\ZZ$. Write
     $b = p_1p_2\cdots p_m$, where $p_i$ are (not necessarily distinct) primes. Then we write
     \[\lege{a}{b} = \lege{a}{p_1}\lege{a}{p_2}\cdots \lege{a}{p_m}\]

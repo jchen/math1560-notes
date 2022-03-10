@@ -1,0 +1,161 @@
+%!TEX root = ../notes.tex
+\section{March 10, 2022}
+\subsection{Jacobi Symbol \emph{continued}}
+\recall
+\begin{definition*}[Jacobi Symbol]
+    Let $b\in\ZZ_+$ be odd, and let $a\in\ZZ$. We write $b = p-1p_2\cdots p_m$, where $p_i$ are primes (not necessarily distinct). Then we have
+    \[\lege{a}{b} = \lege{a}{p_1}\lege{a}{p_2}\cdots \lege{a}{p_m}\]
+    is called the \ul{Jacobi symbol}.
+\end{definition*}
+
+This generalizes the Legendre symbol. We have basic properties that
+\begin{align*}
+    \lege{a_1a_2}{b} & = \lege{a_1}{b}\lege{a_2}{b} \\
+    \lege{a}{b_1b_2} & = \lege{a}{b_1}\lege{a}{b_2}
+\end{align*}
+We noted that $\lege{a}{b} = -1$ implies that $a$ is \emph{not} a quadratic residue mod $b$ but $\lege{a}{b} = 1$ does not imply $a$ is a quadratic residue mod $b$.
+
+We also stated analogues of the reciprocity laws for the Legendre symbol.
+
+\begin{lemma}\label{lemma:multiplicativity-for-jacobi}
+    Let $r, s\in\ZZ_+$ be odd. Then
+    \begin{enumerate}[(a)]
+        \item $\displaystyle\frac{rs-1}{2}\equiv \frac{r-1}{s} + \frac{s-1}{2}\mod 2$.
+        \item $\displaystyle\frac{r^2s^2 - 1}{8} \equiv \frac{r^2-1}{8} + \frac{s^2 - 1}{8}\mod 2$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    ~\begin{enumerate}[(a)]
+        \item $(r-1)(s-1)\equiv 0\mod 4$. Hence
+              \begin{align*}
+                  rs - 1 & \equiv (r-1)(s-1) + r + s - 2\mod 4          \\
+                         & \equiv r + s - 2\mod{4}                      \\
+                         & \equiv (r-1) + (s-1)\mod{4}                  \\
+                         & \equiv \frac{r-1}{2} + \frac{s-1}{2} \mod{2}
+              \end{align*}
+              which gives (a).
+        \item We follow the same procedure, more or less. $(r^2-1)(s^2-1)\equiv 0\mod{16}$, so
+              \begin{align*}
+                  r^2s^2-1 & \equiv (r^2-1)(s^2-1)+r^2+s^2-2\mod{16}         \\
+                           & \equiv (r^2-1)+(s^2-1)\mod{16}                  \\
+                           & \equiv \frac{r^2-1}{8} + \frac{s^2-1}{8}\mod{2}
+              \end{align*}
+              which gives (b).
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    let $r_1, r_2, \dots, r_m\in\ZZ_+$ be odd. Then
+    \begin{enumerate}[(a)]
+        \item $\displaystyle
+                  \sum_{i=1}^m \frac{r_i-1}{2} \equiv \frac{r_1r_2\cdots r_m - 1}{2}\mod 2
+              $.
+        \item $\displaystyle
+                  \sum_{i=1}^m \frac{r_i^2 - 1}{2}\equiv \frac{r_1^2r_2^2\cdots r_m^2 - 1}{8}\mod 2
+              $.
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    By induction on $m$ from \cref{lemma:multiplicativity-for-jacobi}.
+\end{proof}
+
+We restate the reciprocity laws but for Jacobi symbols, \cref{prop:5.2.2}:
+\begin{proposition*}[5.2.2 of Text]
+    We have the following properties about the Jacobi symbol:
+    \begin{enumerate}[(a)]
+        \item \[\lege{-1}{b} = (-1)^{\frac{b-1}{2}}\]
+        \item \[\lege{2}{b} = (-1)^{\frac{b^2 - 1}{8}}\]
+        \item If $a, b\in\ZZ_+$, then
+              \[\lege{a}{b}\lege{b}{a} = (-1)^{\frac{a-1}{2}\frac{b-1}{2}}\]
+    \end{enumerate}
+\end{proposition*}
+\begin{proof}[Proof of \cref{prop:5.2.2}]
+    ~\begin{enumerate}
+        \item[(a) $+$ (b)] are immediate from the corollary (factor $b$, sum exponents and take the parity of the exponent) and the supplemental laws of quadratic reciprocity.
+        \item[(c)] Let
+            \begin{align*}
+                a & =q_1q_2\cdots q_l   \\
+                b & = p_1p_2\cdots p_m.
+            \end{align*}
+            Then
+            \begin{align*}
+                \lege{a}{b}\lege{b}{a} & = \prod_{i}\prod_{j} \lege{q_i}{p_j}\lege{p_i}{q_j}                                     \\
+                                       & = (-1)^{\sum_i \sum_j \left(\frac{q_i-1}{2}\right)\left(\frac{p_j-1}{2}\right)}
+                \intertext{Applying the corollary, }
+                                       & = (-1)^{\left(\sum_i \frac{q_i - 1}{2}\right)\left(\sum_j \frac{p_j - 1}{2}\right)}     \\
+                                       & = (-1)^{\left(\frac{(\sum_i q_i) - 1}{2}\right)\left(\frac{(\sum_j p_j) - 1}{2}\right)} \\
+                                       & = (-1)^{\left(\frac{a-1}{2}\right)\left(\frac{b-1}{2}\right)}
+            \end{align*}
+            which is as desired!
+    \end{enumerate}
+\end{proof}
+\begin{example}
+    We try to compute with the Jacobi symbol. Recall \cref{example:legendre-symbol}
+    \[\lege{219}{383}\]
+    where we repeatedly factored and flipped. With a Jacobi symbol, we don't need to start with factoring; we can forego factorization of top argument and simply repeatedly flip:
+    \begin{align*}
+        \lege{219}{383} & = - \lege{383}{219} = -\lege{164}{219} = - \lege{4}{219}\lege{41}{219} = - \lege{41}{219} \\
+                        & = - \lege{219}{41} = - \lege{14}{41} = - \lege{2}{41}\lege{7}{41} = -\lege{7}{41}         \\
+                        & = -\lege{41}{7} = -\lege{-1}{7} = \boxed{1}.
+    \end{align*}
+\end{example}
+What we did here is to exploit the fact that \emph{all} Legendre symbols agree with Jacobi symbols, we treat it as a Jacobi symbol and do `Jacobi-\emph{like}' manipulations on it.
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{images/jacobi_legendre_reveal.jpeg}
+\end{center}
+
+\emph{This marks the dividing line between the first half and latter half of the course! Everything up to this point is fair game on the midterm. We also now switch to Stewart and Tall.}
+
+\subsection{Number Fields}
+\begin{definition}[Algebraic Numbers]
+    A complex number $x$ is called \ul{algebraic} if it is algebraic over $\QQ$, i.e., if it satisfies a nonzero polynomial equation over $\QQ$.
+
+    We denote the set of algebraic numbers over $\QQ$ as $\overline{\QQ}$.
+\end{definition}
+\begin{proposition}
+    The set $\overline{\QQ}$ of algebraic numbers is a subfield of $\CC$. That is, addition and multiplication is closed, and we have inverses for nonzero elements.
+\end{proposition}
+\begin{proof}
+    The key point is that if $L / K$ is a field extension, then $\alpha\in L$ is algebraic over $K$ iff $K(\alpha)/K$ is finite.
+
+    So suppose $\alpha, \beta\in\overline{\QQ}$. Then $\QQ(\alpha)/\QQ$ and $\QQ(\beta)/\QQ$ are finite. Thus $\QQ(\alpha, \beta)/\QQ$ is finite (and all pieces of the associated diamond are finite extensions as well).
+
+    ***(Diamond diagram)
+
+    Since $\alpha + \beta$, $\alpha - \beta$, $\alpha\beta$ and for $\beta \neq 0$, $\alpha/\beta \in \QQ(\alpha, \beta)$. This means that all of these elements are algebraic over $\QQ$.
+\end{proof}
+
+\begin{definition}
+    A \ul{number field} is a subfield $K$ of $\CC$ such that $[K : \QQ] < \infty$.
+\end{definition}
+
+Thus every element of a number field is algebraic, so $K\subseteq \overline{Q}$.
+
+By the definition of a finite extension, every number field has the form
+\[K = \QQ(\alpha_1, \alpha_2, \dots, \alpha_N)\text{ for some }\alpha_1, \dots, \alpha_n\in\overline{\QQ}\]
+
+However, something stronger than this holds.
+
+\begin{theorem}[Primitive Element Theorem]
+    If $K$ is a number field, then $K = \QQ(\theta)$ for some $\theta\in\overline{\QQ}$.
+\end{theorem}
+\begin{proof}[Proof sketch]
+    It is enough to show that if
+    \[K = K_1(\alpha, \beta), \]
+    then $K = K_1(\theta)$ for some $\theta\in\overline{\QQ}$.
+
+    Suppose the minimum polynomials (over $\QQ$) of $\alpha$ and $\beta$ respectively are (factored over roots in $\CC$):
+    \begin{align*}
+        (t-\alpha_1)(t-\alpha_2)\cdots (t-\alpha_n)\qquad \alpha_1 & = \alpha \\
+        (t-\beta_1)(t-\beta_2)\cdots (t-\beta_n)\qquad \beta_1     & = \beta  \\
+    \end{align*}
+    These polynomials are separable. Hence for each $i$ and each $k\neq 1$, there exists at most one $x\in K_1$ such that 
+    \[\alpha_i + x\beta_k = \alpha_1 + x\beta_1.\]
+    (This only holds for more $x$ when you have $\beta_k$ and $\beta_1$ colliding). There are only finitely many of these equations, so we can choose a nonzero $c\in K_1$ such that 
+    \[\alpha_i + c\beta_k \neq \alpha_1 + c\beta_1\]
+    for any $1\leq i\leq n$ and $2\leq k\leq m$. 
+
+    Define $\theta = \alpha + c\beta$. We claim that 
+    \[K_1(\alpha, \beta) = K_1(\theta)\]
+    for which the proof is on page 39 of Stewart Tall. 
+\end{proof}
