@@ -1,0 +1,107 @@
+%!TEX root = ../notes.tex
+\section{March 15, 2022}
+\subsection{Number Fields \emph{continued}}
+\recall from last class...
+\begin{definition*}
+    A complex number $\alpha$ is called \ul{algebraic} if it is algebraic over $\QQ$.
+\end{definition*}
+\begin{proposition*}
+    The set $\overline{\QQ}$ of algebraic numbers is a subfield of $\CC$.
+\end{proposition*}
+\begin{definition*}
+    A number field is a subfield $K$ of $\CC$ such that $[K: \QQ]<\infty$.
+\end{definition*}
+\begin{theorem*}[Primitive Element Theorem]
+    If $K$ is a number field, then $K = \QQ(\theta)$ for some $\theta\in \overline{\QQ}$.
+\end{theorem*}
+\begin{proof}[Crux of proof]
+    Suppose $K = K_1(\alpha, \beta)$. Thus $K = K_1(\theta)$ for some $\theta$ that is easily found as a function of $\alpha$ and $\beta$.
+
+    Write the minimum polynomials of $\alpha, \beta$ over $K_1$(factored over $\CC$)
+    \begin{align*}
+        (t-\alpha_1)(t-\alpha_2)\cdots (t-\alpha_n)\quad \alpha_i\in\overline{\QQ}, \text{ and }\alpha =: \alpha_1 \\
+        (t-\beta_1)(t-\beta_2)\cdots (t-\beta_m)\quad \beta_i\in\overline{\QQ}, \text{ and }\beta =: \beta_1
+    \end{align*}
+    These are separable. Hence for each $i$ and each $k\neq 1$, there exists at most one $x\in K$ such that
+    \[\alpha_i + x\beta_k = \alpha_1 + x\beta_1\]
+    Hence, since there are only finitely many of these equations, we can choose $0\pm c\in K$, such that
+    \[\alpha_i + c\beta_k \neq \alpha_1 + c\beta_1\]
+    for any $1\leq i\leq n$ and $2\leq k\leq m$. We define $\theta = \alpha + c\beta$. We claim $K = K_1(\theta)$.
+\end{proof}
+The proof up to this claim is actually useful in finding a primitive element.
+\begin{example}[p.39 \cite{stewart2015algebraic}]
+    Let $K = \QQ(\sqrt{2}, \sqrt[3]{5})$.
+    \[\alpha_1 = \sqrt{2}, \beta_1 = \sqrt[3]{5}\]
+    We then have $\alpha_2 = -\sqrt{2}$ and we can let $\beta_2 = \zeta_3\sqrt[3]{5}, \beta_2 = \zeta_3^2\sqrt[3]{5}$ where $\zeta_3$ is the primitive 3rd root of unity.
+
+    $c = 1$ has the property that
+    \[\alpha_i + c\beta_k \neq \alpha_1 + c\beta_1\]
+    for $1\leq i\leq 2$ and $2\leq k\leq 3$.
+
+    Therefore, we can conclude that $\sqrt{2} + \sqrt[3]{5}$ is a primitive element for $\QQ(\sqrt{2}, \sqrt[3]{5})/\QQ$.
+\end{example}
+
+\subsection{Conjugates of Algebraic Numbers}
+\begin{theorem}[p.40 \cite{stewart2015algebraic}]
+    Let $K = \QQ(\theta)$ be a number field of degree $n$ over $\QQ$. Then there exists exactly $n$ distinct field embedding of $K$ into $\CC$. (We label these $\sigma_i : K \hookrightarrow \CC, 1\leq i \leq n$.)
+
+    The $\sigma_i(\theta)=:\theta_i$ are the zeros in $\CC$ of the minimal polynomial of $\theta$ over $\QQ$.
+\end{theorem}
+\begin{proof}
+    Suppose $\sigma : K\hookrightarrow \CC$ is an embedding. We have that $\sigma$ is the identity on $\QQ$ (since $\sigma(1) = 1$), so
+    \[0=\sigma(f(\theta)) = f(\sigma(\theta))\qquad \text{where $f:= \minpoly_\QQ(\theta)$}.\]
+    Hence $\sigma(\theta)$ is a root of $f$.
+
+    Conversely, for each root $\theta_i$ of $f$, there is a field isomorphism\footnote{We find isomorphisms $\QQ(\theta)\overset{\sim}{\longrightarrow} \QQ[x]/f$ and similarly $\QQ(\theta_i)\overset{\sim}{\longrightarrow} \QQ[x]/f$ where $f :=\minpoly_\QQ(\theta) = \minpoly_\QQ(\theta_i)$.} taking
+    \[\QQ(\theta)\overset{\sigma_i}{\longrightarrow}\QQ(\theta_i)\]
+    such that $\sigma_i (\theta) = \theta_i$. Therefore we've shown a bijection between the roots of $f$ and the embeddings of $K$ into $\CC$.
+\end{proof}
+
+\subsection{Discriminants of Bases, Vandermonde Determinant}
+Let $K = \QQ(\theta)$ be a number field of degree $n$, and let $\{\alpha_1, \alpha_2, \dots, \alpha_n\}$ be a basis of $K$ as a vector space over $\QQ$. Let $\sigma_i : K\hookrightarrow \CC$, $1\leq i\leq n$ be the embeddings of $K$ into $\CC$.
+
+\begin{definition}
+    The discriminant of $\{\alpha_1, \alpha_2, \dots, \alpha_n\}$ is
+    \begin{align*}
+        \Delta[\alpha_1, \alpha_2, \dots, \alpha_n] & = \det\left(\sigma_i(\alpha_i)\right)^2 \\
+                                                    & = \det
+        \begin{pmatrix}
+            \sigma_1(\alpha_1) & \sigma_1(\alpha_2) & \cdots & \sigma_1(\alpha_n) \\
+            \sigma_2(\alpha_1) & \sigma_2(\alpha_2) & \cdots & \sigma_2(\alpha_n) \\
+            \vdots             & \vdots             & \ddots & \vdots             \\
+            \sigma_n(\alpha_1) & \sigma_n(\alpha_2) & \cdots & \sigma_n(\alpha_n) \\
+        \end{pmatrix}^2
+    \end{align*}
+\end{definition}
+If $\{\beta_1, \dots, \beta_n\}$ is another basis, then $\forall 1\leq k\leq n$,
+\[\beta_k = \sigma_{i = 1}^n C_{ik}\alpha_i, \quad C_{ik}\in \QQ,\]
+where $\det(C_{ik})\neq 0$. Then it is a fact that
+\[\Delta[\beta_1, \dots, \beta_n] = \left(\det(C_{ik})\right)^2\cdot \Delta[\alpha_1, \dots, \alpha_n]\]
+\begin{theorem}[p.42 \cite{stewart2015algebraic}]
+    The discriminant of any basis for $K = \QQ(\theta)$ is rational and nonzero.
+\end{theorem}
+\begin{proof}
+    It suffices to show that this holds for $\{1, \theta, \theta^2, \dots, \theta^{n-1}\}$ by the above fact.
+
+    Write $\theta = \theta_1$, $\theta_1, \theta_2, \dots, \theta_n$ for the conjugates of $\theta_1$. Then
+    \[\Delta[1, \theta, \theta^2, \dots, \theta^{n-1}] = \left(\det(\theta_i^j)\right)^2\]
+    We use a general observation
+    \begin{definition}[Vandermonde Matrix]
+        A (square) \ul{Vandermonde matrix} is a matrix of the form
+        \[V = \begin{pmatrix}
+                1      & t_1    & t_1^2  & \dots  & t_1^{n-1} \\
+                1      & t_2    & t_2^2  & \dots  & t_2^{n-1} \\
+                \vdots & \vdots & \vdots & \ddots & \vdots    \\
+                1      & t_n    & t_n^2  & \dots  & t_n^{n-1} \\
+            \end{pmatrix}\]
+    \end{definition}
+    \begin{claim}
+        The determinant of $V$ is
+        \[\prod_{1\leq i < j\leq n}(t_i - t_j).\]
+    \end{claim}
+    Going back to the proof of our claim about discriminants, we can take $t_i = \theta_i := \sigma_i(\theta)$ to get
+    \begin{align*}
+        \Delta[1, \theta, \dots, \theta^{n-1}] & = \prod_{i<j}(\theta_i - \theta_j)^2  \\
+                                               & = \mathsf{disc}(\minpoly_\QQ(\theta))
+    \end{align*}
+\end{proof}
