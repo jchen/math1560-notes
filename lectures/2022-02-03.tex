@@ -168,12 +168,12 @@ Here is an important fact about the Euler $\phi$ function:
     We use the fact that $\phi$ is multiplicative, and that this function is a summatory function of $\phi$, so this function itself is multiplicative. We can decompose this into prime powers. So it suffices to show this for prime powers.
 
     Let $n = p^k$. Let
-    \[f(n) = \sum_[d\mid n]\phi(d).\]
+    \[f(n) = \sum_{d\mid n}\phi(d).\]
     Then we have
     \begin{align*}
         f(p^k) = \sum_{d\mid p^k} \phi(d) & = 1 + (p-1) + (p^2 - p) + \dots + (p^k-p^{k-1})
         \intertext{which is a telescoping sum which leaves}
                                           & = p^k
     \end{align*}
-    which is as intended. 
+    which is as intended.
 \end{proof}
