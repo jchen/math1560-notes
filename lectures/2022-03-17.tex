@@ -1,0 +1,129 @@
+%!TEX root = ../notes.tex
+\section{March 17, 2022}
+\subsection{Midterm Review}
+\subsubsection*{General Advice}
+\begin{itemize}
+    \item 5-7pm. Location: Barus \& Holley 168.
+    \item There are 5 problems:
+          \begin{itemize}
+              \item Each are weighted equally, some have multiple sections in them.
+              \item There is a bonus problem for a \emph{token} number of points.
+          \end{itemize}
+    \item Think about problems before starting! Don't begin immediately.
+\end{itemize}
+
+\subsubsection*{Key Topics}
+\begin{enumerate}[1)]
+    \item
+          Unique factorization in $\ZZ$ (\cref{thm:unique-factorization}). Key points:
+          \begin{itemize}
+              \item Existence (using well-ordering of $\ZZ_+$)
+              \item Uniqueness (using prime elements being irreducible elements in $\ZZ$)
+          \end{itemize}
+    \item
+          $\ZZ$ is a Euclidean domain with Euclidean function $\mathsf{abs}$ (absolute value) (\cref{cor:z-euclidean}).
+          \begin{itemize}
+              \item Argument uses well-ordering of $\ZZ_+$ applied to the set $S = \{a - bq\mid b\in \ZZ\}$ when trying to divide $a$ by $b$.
+              \item Repeated application of this property yields the Euclidean algorithm for finding $\gcd$'s.
+          \end{itemize}
+    \item
+          Bezout's Identity (\emph{not} Bezout's Theorem)
+
+          If $a, b\in\ZZ$ are integers (not both $0$) and $c\in \ZZ$, then there exists $x, y\in\ZZ$ such that
+          \[ax + by = c\]
+          if and only if $\gcd(a, b)\mid c$.
+          \begin{itemize}
+              \item We take set $S = \{ax + by\mid x, y\in\ZZ\}$ and use well-ordering to show that the smallest element has to be $c$.
+          \end{itemize}
+    \item
+          From Bezout to solving linear congruences in $1$ variable, the linear congruence
+          \[ax\equiv b\pmod{m}\]
+          is equivalent to
+          \[ax - my = b\]
+          for some $y\in \ZZ$. Applying Bezout's tells us that this equation is solvable if and only if $\gcd(a, b)\mid b$. When a solution exists, there are $d$ solutions modulo $m$.
+          \begin{itemize}
+              \item Showing there are $d$ solutions: you divide $a, b, m$ by $\gcd(a, m)$, then you have a modulus $\frac{m}{\gcd(a, m)}$ where we have a unique solution. We lift up to solutions modulo $m$.
+          \end{itemize}
+    \item
+          Sunzi's theorem (\cref{thm:crt}). For $m, n\in\ZZ_+$ with $(m, n) = 1$. And $a, b\in\ZZ$, then the simultaneous congruences
+          \begin{align*}
+              x\equiv a\pmod{m} \\
+              x\equiv b\pmod{n}
+          \end{align*}
+          have a \emph{unique} solution modulo $mn$.
+          \begin{itemize}
+              \item We have $\pi : \ZZ/mn\ZZ\to \ZZ/m\ZZ\times \ZZ/n\ZZ$ be the natural projectsion where $\ker(\pi) = \{0\}$ since $(m, n) = 1$.
+          \end{itemize}
+    \item
+          Structure of group of units (\cref{cor:cyclicity-of-unit-groups}). $U(m)$ is cyclic $\iff$ $m = 1, 2, 4, p^e, 2p^e$.
+\end{enumerate}
+
+\subsubsection*{Practice Problems}
+\begin{problem}
+Find the integer $0\leq a\leq 36$ such that
+\[3777^{\left(1144523^{56245501}\right)} \equiv a\pmod{37}\]
+\end{problem}
+We can reduce the base $3777\equiv 3\pmod{37}$. We reduce $1144523\equiv 11\pmod{\phi(37)}$. We can reduce the upper power $56245501\equiv 1\pmod{\phi(\phi(37))}$. This reduces to
+\[3^{11}\equiv a\pmod{37}\]
+which gives $a\equiv 28\pmod{37}$.
+
+\begin{problem}
+Let $p\in\ZZ$ be a prime and let $g$ be a primitive root mod $p$. Describe the set
+\[\{g^k\mid g^k \text{ is a primitive root mod $p$}\}\]
+\end{problem}
+\begin{proof}
+    We claim that $\gcd(k, p-1) = 1$. Then for any element $a = g^\alpha$, we can find power $(g^k)^\beta = g^\alpha$ since we have $g^{p-1}\equiv 1$ so $k\beta - x(p-1) = \alpha$ for some $x$, which only has solutions by Bezout's identity when $\gcd(k, p-1)$.
+\end{proof}
+
+\begin{lemma*}
+    Prove that for any finite group $G$ of order $n$ and any $g\in G$, the cyclic group $\langle g^k\rangle$ for $k$ such that $\gcd(k, \ord(g)) = 1$ equals $\langle g\rangle$.
+\end{lemma*}
+\begin{proof}
+    Let $d = (k, \ord(g))$. Then there exists $x, y\in\ZZ$ such that
+    \[\ord(g)\cdot x + k\cdot y = d\]
+    so
+    \begin{align*}
+        g^d & = g^{\ord(g)\cdot x + ky}        \\
+            & = g^{\ord(g)\cdot x}\cdot g^{ky} \\
+            & = g^{ky}
+    \end{align*}
+    so $g^d\in \langle g^k\rangle \implies \langle g^d\rangle \subseteq \langle g^k\rangle$. We have $\langle g^k\rangle\subseteq \langle g^d\rangle$ since $d\mid k$. Thus $\langle g^d\rangle = \langle g^k\rangle$.
+
+    We also have that $(g^k)^{\ord(g)/d} = (g^{\ord{g}})^{k/d} = 1$ so if $d = (k, \ord(g))>1$ then $\ord(g^k)< \ord(g)$.
+
+    So together we have that $\langle g\rangle = \langle g^k\rangle$ if and only if $(g, \ord(g))=1$.
+\end{proof}
+
+\begin{problem}
+Prove
+\begin{proposition*}
+    If $f : \ZZ_+\to \CC$ is a nonzero multiplicative function, then $f^{-1}$ (the Dirichlet inverse) exists and is multiplicative.
+\end{proposition*}
+\end{problem}
+\begin{proof}
+    Let $h$ be given by
+    \begin{align*}
+        h(p^k) & = f^{-1}(p^k)\qquad\text{prime powers $p^k$} \\
+        h(n)   & = h(p_1^{e_1})\cdots h(p_k^{e_k})
+    \end{align*}
+    then $(f\star h)(p^k) = I(p^k)$. Both $f\star h$ and $I$ are multiplicative, so
+    \[(f\star h)(n) = I(n)\quad\forall n\in\ZZ\]
+    and $h = f^{-1}$.
+
+    (Existence, $f(1) = 1$ for any multiplicative function, so in particular our given $f$ satisfies $f(1)\neq 0$.)
+\end{proof}
+
+\begin{problem}
+Define $\lambda : \ZZ_+\to \CC$ by
+\[\lambda(n) = (-1)^{e_1 + e_2 + \cdots}\]
+where the $e_i$'s are the exponents on the prime factorization of $n$. Let
+\[g(n) = \sum_{d\mid n}\lambda(d)\]
+Prove that
+\[g(n) = \begin{cases}
+        1 & \text{if $n$ is square} \\
+        0 & \text{otherwise}
+    \end{cases}\]
+\end{problem}
+\begin{proof}
+    We note that $\lambda$ is multiplicative, and $g$ is a summatory function of $\lambda$ which is multiplicative. So we just prove on prime powers. If we have prime power with even exponent, then $p, p^2, \dots, p^{e_1}\mid p^{e_1}$ gives $1 + (-1) + 1 + (-1) + \cdots + 1 = 1$. We have $0$ otherwise.
+\end{proof}

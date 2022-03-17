@@ -42,7 +42,7 @@ We prove a lemma as warm-up:
 
 This is the theorem we will eventually work toward proving:
 
-\begin{theorem}[Unique Factorization]\label{unique-factorization}
+\begin{theorem}[Unique Factorization]\label{thm:unique-factorization}
     Every nonzero integer $n$ yields a \emph{unique} prime factorization
     \begin{equation*}
         n = (-1)^\varepsilon\cdot \prod_{p}p^{a(p)}, a(p)\geq 0
@@ -66,7 +66,7 @@ Before this proof, we first recall a conclusion from Math 1530:
 
     Then it had better be that $0\leq r < b$ for some $r, q\in\ZZ$.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:z-euclidean}
     $\ZZ$ is a Euclidean domain, with a Euclidean function given by \cref{division-lemma}.
 \end{corollary}
 
@@ -130,7 +130,7 @@ We're nearly ready to prove unique factorization, after a lemma:
 \end{proof}
 
 \begin{proof}
-    (of \cref{unique-factorization}, that $\ZZ$ is a UFD). Recall that for a nonzero $n\in \ZZ$, we write
+    (of \cref{thm:unique-factorization}, that $\ZZ$ is a UFD). Recall that for a nonzero $n\in \ZZ$, we write
     \[n = (-1)^\varepsilon \prod_{p}p^{a(p)}, \text{where }\varepsilon = 0\text{ or }1\text{ and }a(p)\geq 0\]
     Given a positive prime $q$, we take $\ord_q$ of both sides. By \cref{additive-orders}, this yields
     \[\ord_q n = \varepsilon\cdot \ord_q (-1) + \sigma_p a(p)\ord_q(p)\]
