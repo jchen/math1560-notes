@@ -1,0 +1,120 @@
+%!TEX root = ../notes.tex
+\section{March 22, 2022}
+\subsection{Discriminants of bases, Vandermonde determinants}
+We have some review from last time:
+
+Let $K = \QQ(\theta)$ be a number field of degree $n$, let $\{\alpha_1, \dots, \alpha_n\}$ be a $\QQ$-basis of $K$, and let $\sigma_i : K\hookrightarrow \CC$, $1\leq i\leq n$ be the embeddings of $K$ into $\CC$.
+
+The discriminant of $\{\alpha, \dots, \alpha_n\}$ is
+\[\Delta[\alpha_i, \dots, \alpha_n] = \det\begin{pmatrix}
+        \sigma_1(\alpha_1) & \sigma_1(\alpha_2) & \cdots & \sigma_1(\alpha_n) \\
+        \sigma_2(\alpha_1) & \sigma_2(\alpha_2) & \cdots & \sigma_2(\alpha_n) \\
+        \vdots             & \vdots             & \ddots & \vdots             \\
+        \sigma_n(\alpha_1) & \sigma_n(\alpha_2) & \cdots & \sigma_n(\alpha_n) \\
+    \end{pmatrix}^2\]
+
+If $\{\beta_1, \dots, \beta_n\}$ is another basis, then for all $1\leq k\leq n$,
+\[\beta_k = \sum_{i=1}^n c_{ik}\alpha_i, \quad c_{ik}\in \QQ,\]
+where $\det(c_{ik})\neq 0$. Fact from homework is that
+\[\Delta[\beta_i, \dots, \beta_n] = \det(c_{ik})^2\cdot \Delta[\alpha_i, \dots, \alpha_n]\]
+
+\begin{theorem*}[2.7, p.42 \cite{stewart2015algebraic}]
+    The discriminant of any $\QQ$-basis for $K$ is rational and nonzero.
+\end{theorem*}
+\begin{proof}
+    It suffices to prove this for $\{1, \theta, \theta^2, \dots, \theta^{n-1}\}$.
+\end{proof}
+
+We have the following observation:
+\begin{definition*}[Vandermonde Matrix]
+    A (square) \ul{Vandermonde matrix} is a matrix of the form
+    \[V = \begin{pmatrix}
+            1      & t_1    & t_1^2  & \dots  & t_1^{n-1} \\
+            1      & t_2    & t_2^2  & \dots  & t_2^{n-1} \\
+            \vdots & \vdots & \vdots & \ddots & \vdots    \\
+            1      & t_n    & t_n^2  & \dots  & t_n^{n-1} \\
+        \end{pmatrix}\]
+\end{definition*}
+
+We then claimed (without proof) that
+\begin{claim*}
+    The determinant of $V$ is
+    \[\prod_{1\leq i < j\leq n}(t_j - t_i).\]
+\end{claim*}
+\begin{proof}
+    We know that $\det(V) = 0$ when $t_i = t_j$ for some $i\neq j$. So, $\det(V)$ (as a polynomial in $t_1, \dots, t_n$) is divisible by $t_i - t_j$ for $i < j$. We have that the total degree of $\det(V)$ as a polynomial in $t_1, \dots, t_n$ is
+    \[\sum_{i=1}^{n-1} i = \frac{n(n-1)}{2}.\]
+    On the other hand, the total degree of $D$ is also $\binom{n}{2} = \frac{n(n-1)}{2}$. Hence, $\det(V)$ is a scalar multiple of $D$ (since ).
+
+    But $\det(V)$ and $D$ are both monic as polynomials (\emph{kinda}) in $\QQ(t_2, \dots, t_n)[t_1]$. Thus $\det(V) = D$. \emph{Or something like that}.
+\end{proof}
+
+Going back to the proof of \cref{thm:2.7}, we take $t_i = \theta_i := \sigma_i(\theta)$ to get
+\begin{align*}
+    \Delta[1, \theta, \dots, \theta^{n-1}] & = \prod_{i < j}(theta_i - \theta_j)^2  \\
+                                           & = \mathsf{disc}(\minpoly_\QQ(\theta)).
+\end{align*}
+which is clearly rational and nonzero in $\QQ^+$.
+
+\begin{example}
+    Let
+    \[K = \QQ(\sqrt{5})\]
+    with the obvious basis $\{1, \sqrt{5}\}$. We have
+    \begin{align*}
+        \Delta[1, \sqrt{5}] & = \left|\begin{array}{cc}
+                                          1 & \sqrt{5}  \\
+                                          1 & -\sqrt{5}
+                                      \end{array}\right|^2 \\
+                            & = (-2\sqrt{5})^2             \\
+                            & = 20
+    \end{align*}
+    and another basis is $\left\{1, \frac{1+\sqrt{5}}{2}\right\}$ and
+    \begin{align*}
+        \Delta\left[1, \frac{1+\sqrt{5}}{2}\right] & = \left|\begin{array}{cc}
+                                                                 1 & \frac{1+\sqrt{5}}{2}  \\
+                                                                 1 & -\frac{1+\sqrt{5}}{2}
+                                                             \end{array}\right|^2 \\
+                                                   & = (-2\frac{\sqrt{5}}{2})^2                      \\
+                                                   & = (\sqrt{5})^2 = 5
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Let
+    \[K = \QQ(\sqrt[3]{2})\]
+    A basis is $\{1, \sqrt[3]{2}, (\sqrt[3]{2})^2\} =: B$
+    \begin{align*}
+        \Delta(B) = \left|\begin{array}{ccc}
+                              1 & \sqrt[3]{2}          & (\sqrt[3]{2})^2          \\
+                              1 & \zeta_3\sqrt[3]{2}   & (\zeta_3\sqrt[3]{2})^2   \\
+                              1 & \zeta_3^2\sqrt[3]{2} & (\zeta_3^2\sqrt[3]{2})^2
+                          \end{array}\right|
+    \end{align*}
+    \emph{computation left as exercise\dots}
+\end{example}
+
+\subsection{Algebraic Integers}
+\begin{definition}[Algebraic Integer]
+    A complex number is an \ul{algebraic integer} if it is a root of a \emph{monic} polynomial with integer coefficients.
+\end{definition}
+
+We denote the set of algebraic integers by $\overline{\ZZ}$. By definitions, $\overline{\ZZ}\subseteq\overline{\QQ}$.
+
+\begin{example}
+    The following are some algebraic integers: 
+    \begin{itemize}
+        \item $\sqrt{2}\in\overline{\ZZ}$ since $\sqrt{2}$ is a root of $x^2 - 2$. 
+        \item $\tau = \frac{1}{2}(1 + \sqrt{5})$, since $\tau^2 - \tau - 1 = 0$. 
+    \end{itemize}
+    Non-examples: 
+    \begin{itemize}
+        \item $\frac{22}{7}$ is not an algebraic integer. \emph{Why?} We look at the $7$-adic valuation of the monic polynomial when we plug $\frac{22}{7}$ in. What are some other ways to reason about this? 
+    \end{itemize}
+\end{example}
+Key algebra fact: If $f(x)\in \ZZ[x]$ is a monic polynomial with $f(x) = g(x)\cdot h(x)$ where $g(x)$, $h(x)$ are monic polynomials in $\QQ[x]$, then $g(x), h(x)\in \ZZ[x]$. (Gauss's Lemma). 
+
+Hence, if $\frac{22}{7}$ is an algebraic integer, if has some $f(x)\in\ZZ[x]$ for which it is a root. But it is also a root of $g(x) = x - \frac{22}{7}$ where $f(x) = g(x)\cdot h(x)$ forcing $g(x)$ to be in $\ZZ[x]$. So the fact that $\minpoly_\QQ\left(\frac{22}{7}\right) = x - \frac{22}{7}$ implies that $\frac{22}{7}\not\in\overline{\ZZ}$. 
+
+\begin{definition*}[Algebraic Integer']
+    An algebraic number $\theta$ is an algebraic integer iff $\minpoly_\QQ(\theta)\in\ZZ[x]$. 
+\end{definition*}
