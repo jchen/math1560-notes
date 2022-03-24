@@ -405,3 +405,6 @@
 \newcommand{\lege}[2]{\left(\dfrac{#1}{#2}\right)}
 \newcommand{\otoh}{\textsc{otoh}}
 \DeclareMathOperator{\minpoly}{\mathsf{minpoly}}
+\newcommand{\QQbar}{\overline{\QQ}}
+\newcommand{\ZZbar}{\overline{\ZZ}}
+\newcommand{\riO}{\mathfrak{O}}
