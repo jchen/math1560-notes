@@ -1,0 +1,141 @@
+%!TEX root = ../notes.tex
+\section{April 5, 2022}
+\subsection{Integral Bases for Number Fields}
+\recall
+\begin{itemize}
+    \item We introduced embeddings of a number field $K$ into $\CC$, which was directly related to the notion of conjugates.
+    \item Also introduced discriminants of $\QQ$-bases of number fields.
+    \item Also introduced algebraic integers (algebraic numbers whose minimal polynomials over $\QQ$ have integral coefficients).
+    \item We said that the \ul{ring of integers} of $K$ is by definition $\riO_K = K\cap \ZZbar$.
+          \begin{itemize}
+              \item If $K = \QQ$, then $\riO_K = \ZZ$.
+          \end{itemize}
+\end{itemize}
+
+\begin{definition}[Integral Basis]
+    Suppose $\mathcal{B} = \left\{ \alpha_1, \dots, \alpha_n \right\}$ is a $\QQ$-basis for $K$ such that $\alpha_i\in \riO_K\ \forall i$. We say that $\mathcal{B}$ is an \ul{integral basis} for $\riO_K$ if every element $\alpha\in\riO_K$ can be expressed \emph{uniquely} as
+    \[\alpha = a_1\alpha_1 + a_2\alpha_2 + \cdots + a_n\alpha_n\]
+    where each $a_i\in\ZZ$.
+\end{definition}
+\begin{theorem}
+    Every number field has an integral basis.
+\end{theorem}
+\begin{example}
+    Sometimes, we're lucky or it's obvious. For example, if $K = \QQ(\sqrt{2})$ then the obvious basis $\mathcal{B} = \{1, \sqrt{2}\}$ is an integral basis.
+\end{example}
+\begin{proof}
+    Let $K$ be a number field of degree $n$. We had noted that if $\left\{ \alpha_1, \dots, \alpha_n \right\}$ is a $\QQ$-basis of $K$ with $\alpha_i\in \riO_K\ \forall i$, then
+    \[\Delta\left[ \alpha_1, \alpha_2, \dots, \alpha_n \right]\in\ZZ\]
+    We take the absolute value and apply a well-ordering argument. Let $\{\omega_1, \dots, \omega_n\}$ be a $\QQ$-basis with $\omega_i\in\riO_K\ \forall i$ and
+    \[|\Delta\left[ \omega_1, \dots, \omega_n \right]|\leq |\Delta\left[ \alpha_1, \dots, \alpha_n \right]|\]
+    for any $\QQ$-basis $\left\{ \alpha_1, \dots, \alpha_n \right\}$ with $\alpha_i\in \riO_K\ \forall i$ (it has the least absolute value of discriminant).
+
+    \begin{claim*}
+        $\{\omega_1, \dots, \omega_n\}$ is an integral basis for $\riO_K$.
+    \end{claim*}
+    Suppose otherwise, that there is an $\omega\in\riO_K$ such that $\omega = a_1\omega_1 + a_2\omega_2 + \dots + a_n\omega_n$ where $\alpha_i\in\QQ$ and at least one $a_i\not\in\ZZ$.
+
+    \textsc{wlog} suppose $a_1\not\in\ZZ$. Then we can write
+    \[a_1 = a + r\]
+    where $a$ is an integer and $0\leq r\leq 1$.
+
+    Let
+    \begin{align*}
+        \psi_1 & = \omega - a\omega_1 \\
+        \psi_i & = \omega_i
+    \end{align*}
+    for the remaining indices. We check that these are integers $\psi_i\in\riO_K\ \forall i$ which is immediate since $\riO_K$ is a ring.
+
+    The matrix sending the $\omega_i$'s to the $\psi_i$ (with respect to the $\omega_i$-basis) is
+    \[M = \begin{pmatrix}
+            a_1 - a & 0      & 0      & \cdots & 0      \\
+            a_2     & 1      & 0      & \cdots & 0      \\
+            a_3     & 0      & 1      & \cdots & 0      \\
+            \vdots  & \vdots & \vdots & \ddots & \vdots \\
+            a_n     & 0      & 0      & \cdots & 0
+        \end{pmatrix}\]
+    Since this matrix is lower triangular, the determinant is the product of the diagonal entries, namely: $a_1 - a = r$.\footnote{A nonzero determinant gives that $M$ is indeed a \emph{change-of-basis} matrix. So this is indeed a basis.}
+
+    Hence,
+    \begin{align*}
+        \Delta[\psi_1, \psi_2, \dots, \psi_n] & = (\det M)^2\Delta[\omega_1, \omega_2, \dots, \omega_n] \\
+                                              & = r^2\Delta[\omega_1, \omega_2, \dots, \omega_n]
+    \end{align*}
+    contradicting the minimality of $\left\{ \omega_1, \dots, \omega_n \right\}$ with respect to $|\Delta|$.
+
+    Thus $\left\{ \omega_1, \dots, \omega_n \right\}$ is an integral basis for $K$.
+\end{proof}
+\begin{remark}
+    A bit of extra reflection shows that \ul{any} integral basis has a discriminant achieving this minimal possible absolute value.
+\end{remark}
+
+\begin{ques*}
+    How do you know if you're looking at an integral basis?
+\end{ques*}
+You can \emph{sometimes} diagnose this from the discriminant.
+\begin{theorem}[p.50 \cite{stewart2015algebraic}]
+    Suppose $\left\{ \alpha_1, \dots, \alpha_n \right\}$, with $\alpha_i\in\riO_K\ \forall i$ forms a $\QQ$-basis for $K$. If $\delta[\alpha_1, \dots, \alpha_n]$ is squarefree, then $\{\alpha_1, \dots, \alpha_n\}$ is an integral basis.
+\end{theorem}
+\begin{proof}
+    Let $\{\beta_1, \beta_2, \dots, \beta_n\}$ is an integral basis. Then $\exists c_{ij}\in\ZZ$ such that each
+    \[\alpha_i = \sum_{j}c_{ij}\beta_j\ \forall i.\]
+    Then $M= (c_{ij})$ is the change of basis matrix from the $\alpha_i$'s to the $\beta_i$'s.
+    \[\Delta[\alpha_1, \dots, \alpha_n] = (\det M)^2 \Delta[\beta_1, \dots, \beta_n]\]
+    We know both $\det M$ and $\Delta[\beta_1, \dots, \beta_n]$ are integers and $\Delta[\alpha_1, \dots, \alpha_n]$ is squarefree. This forces $\det M = \pm 1$ so in fact $\{\alpha_1, \dots, \alpha_n\}$ is an integral basis.
+\end{proof}
+\begin{example}
+    Let $K = \QQ(\sqrt{5})$. We previously observed that $\theta = \frac{1+\sqrt{5}}{2}\in\ZZbar$ hence $\theta\in\riO_K$ ($\theta$ is a root of $x^2 - x - 1$).
+    \[\Delta\left[ 1, \frac{1+\sqrt{5}}{2} \right] = \left|\begin{array}{cc}
+            1 & \frac{1+\sqrt{5}}{2} \\
+            1 & \frac{1-\sqrt{5}}{2}
+        \end{array}\right| = (-\sqrt{5})^2 = 5\]
+    thus $\left\{ 1, \frac{1+\sqrt{5}}{2} \right\}$ is an integral basis for $K$.
+\end{example}
+
+We previously said that the discriminant of integral bases are invariant for each number field, so we give this a name:
+\begin{definition}[Discriminant of Number Field]
+    Let $K$ be a number field. The discriminant associated to any integral basis of $\riO_K$ is called the \ul{discriminant} of $K$.
+\end{definition}
+\begin{example}
+    The discriminant of $K = \QQ(\sqrt{5})$ has $\disc(K) = 5$ (by previous computation).
+\end{example}
+\begin{example}
+    What about $K = \QQ(\sqrt{2})$, $\riO_K = \ZZ[\sqrt{2}]$? We have
+    \[\left|\begin{array}{cc}1 & \sqrt{2} \\ 1 & -\sqrt{2}\end{array}\right|^2 = (-2\sqrt{2})^2 = 8\]
+    What if we don't want to do linear algebra? Previously we had that with power bases and Vandermonde discriminants, the discriminant of the basis is the discriminant of the minimum polynomial. $\{1, \sqrt{2}\}$ yields minimum polynomial $x^2 - 2$ which has determinant $8$.
+\end{example}
+\begin{example}
+    More interesting, $K = \QQ(\theta)$ for $\theta$ a root of
+    \[x^3 - x^2 - 2x - 8\]
+    An integral basis for $\riO_K$ is given by
+    \[\left\{ 1, \theta, \frac{\theta + \theta^2}{2} \right\}\]
+    which is a number field that doesn't have a power integral basis. We have no basis of form $\{1, \omega, \omega^2, \dots, \omega^{n-1}\}$. The discriminant of this number field is $-503$.
+\end{example}
+Note: the following are ``synonyms'':
+\begin{enumerate}
+    \item $\riO_K = \ZZ[\theta]$ for some $\theta\in\ZZbar$, $\theta\in\riO_K$.
+    \item $\riO_K$ (or $K$) is \ul{monogenic}.
+    \item $\{1, \theta, \theta^2, \dots, \theta^{n-1}\}$ with $\deg\theta = n$ forms an integral basis for some $\theta\in\riO_K$.
+    \item $\riO_K$ (or $K$) has a \ul{power integral basis}.
+\end{enumerate}
+
+We'll look at in more detail quadratic fields and cyclotomic extensions.
+
+\subsection{Quadratic Fields}
+\begin{definition}[Quadratic Field]
+    A \ul{quadratic field} is a number field of degree $2$ over $\QQ$. For $K$ to be quadratic is for $K = \QQ(\theta)$ where $\theta$ a root of $x^2 + ax + b$, $a, b\in\ZZ$.
+\end{definition}
+This gives that $\theta = \frac{-a \pm \sqrt{a^2 - 4b}}{2}$. We can write $a^2 - 4b = r^2d$ where $r, d\in\ZZ$ with $d$ squarefree. This gives $\theta = \frac{-a\pm r\sqrt{d}}{2}$. Immediately,
+\begin{proposition}
+    The quadratic fields are exactly those of the form $\QQ(\sqrt{d})$ for a squarefree integer $d$.
+\end{proposition}
+\begin{theorem}[p.64 of \cite{stewart2015algebraic}]
+    Let $d\in\ZZ$ be a squarefree integer and let $K = \QQ(\sqrt{d})$. Then $\riO_K$ equals
+    \begin{enumerate}[a)]
+        \item $\ZZ\left[\sqrt{d}\right]$ if $d\not\equiv 1\pmod{4}$.
+        \item $\ZZ\left[\frac{1+\sqrt{d}}{2}\right]$ if $d\equiv 1\pmod{4}$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \emph{Next time}.
+\end{proof}

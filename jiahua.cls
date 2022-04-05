@@ -405,6 +405,7 @@
 \newcommand{\lege}[2]{\left(\dfrac{#1}{#2}\right)}
 \newcommand{\otoh}{\textsc{otoh}}
 \DeclareMathOperator{\minpoly}{\mathsf{minpoly}}
+\DeclareMathOperator{\disc}{\mathsf{disc}}
 \newcommand{\QQbar}{\overline{\QQ}}
 \newcommand{\ZZbar}{\overline{\ZZ}}
-\newcommand{\riO}{\mathfrak{O}}
+\newcommand{\riO}{\mathcal{O}}
