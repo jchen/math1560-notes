@@ -1,0 +1,143 @@
+%!TEX root = ../notes.tex
+\section{April 7, 2022}
+\subsection{Quadratic Fields \emph{continued}}
+
+\begin{definition*}
+    A quadratic field is a number field $K$ of degree $2$ over $\QQ$.
+
+    Thus $K = \QQ(\theta)$ for $\theta$ a zero of some
+    \[x^2 + ax + b\]
+    for $a, b\in\ZZ$.
+\end{definition*}
+Hence,
+\[\theta = \frac{-a\pm \sqrt{a^2 - 4b}}{2}.\]
+Thus from which it follows
+\begin{proposition*}
+    The quadratic fields are of the form $\QQ(\sqrt{d})$ where $d\in\ZZ$ is squarefree.
+\end{proposition*}
+
+\begin{theorem*}[p.64 of \cite{stewart2015algebraic}]
+    Let $d\in\ZZ$ be a squarefree integer and let $K = \QQ(\sqrt{d})$. Then $\riO_K$ equals
+    \begin{enumerate}[a)]
+        \item $\ZZ\left[\sqrt{d}\right]$ if $d\not\equiv 1\pmod{4}$.
+        \item $\ZZ\left[\frac{1+\sqrt{d}}{2}\right]$ if $d\equiv 1\pmod{4}$.
+    \end{enumerate}
+\end{theorem*}
+\begin{proof}
+    Every $\alpha\in\QQ(\sqrt{d})$ is of the form
+    \[\alpha = \frac{a\pm b\sqrt{d}}{c}\]
+    with $a, b, c\in\ZZ$ and $\gcd(a, b, c) = 1$. Now $\alpha\in\riO_K$ iff the coefficients of
+    \[\left( x - \frac{a + b\sqrt{d}}{c} \right)\left( x - \frac{a - b\sqrt{d}}{c} \right)\]
+    are in $\ZZ$. This holds iff
+    \[\frac{a^2 - b^2d}{c^2}\in\ZZ\qquad\text{and}\qquad \frac{2a}{c}\in\ZZ\]
+
+    If $(a, c)\neq 1$, then in our first expression, the fact that $d$ is squarefree forces our common factor must also be shared with $b$. So $\gcd(a, b, c)\neq 1$. So $(a, c) = 1$. Looking at our second expression, $c$ is forced to be $1$ or $2$.
+
+    If $c = 1$, then $\alpha\in\riO_K$ anyway, so assume that $c = 2$. We have that $\gcd(b, c) = 1$ by the same reasoning as before, so $c=2$ implies that $a$ and $b$ are both odd.
+
+    Moreover, $\alpha\in\riO_K$ with these assumptions iff
+    \[\frac{a^2 - b^2d}{c^2} = \frac{a^2 - b^2d}{4}\in\ZZ\]
+    which happens iff $a^2 - b^2d\equiv 0\pmod{4}$. Then $a, b$ odd implies $a^2 \equiv b^2\equiv 1\pmod{4}$ so we get that this is equivalent to $d\equiv 1\pmod{4}$.
+
+    Thus $c = 2$ and $\alpha\in\riO_K$ implies that $d\equiv 1\pmod{4}$.
+
+    In sum, if $d\not\equiv 1\pmod{4}$, then $c = 1$, so we've shown that $\riO_K = \ZZ[\sqrt{d}]$. If $d\equiv 1\pmod{4}$, then we can have $c = 2$ and $a, b$ odd. Hence $\riO_K = \ZZ\left[ \frac{1+\sqrt{d}}{2} \right]$.
+\end{proof}
+
+\begin{theorem}[p.65 \cite{stewart2015algebraic}]
+    We then have the following:
+    \begin{enumerate}[a)]
+        \item If $d\not\equiv 1\pmod{4}$, then $\{1, \sqrt{d}\}$ is an integral basis. If $d\equiv 1\pmod{4}$, then $\left\{1, \frac{1+\sqrt{d}}{2}\right\}$ is an integral basis.
+        \item If $d\not\equiv 1\pmod{4}$, then $\disc(K) = 4d$. If $d\equiv 1\pmod{4}$, then $\disc{K} = d$.
+    \end{enumerate}
+\end{theorem}
+
+\subsection{Cyclotomic Extensions}
+\begin{definition}
+    A \ul{cyclotomic field/extension} is a number field of the form
+    \[K = \QQ(\zeta_n), \quad \zeta_n = e^{2\pi i / n}.\]
+    That is, $\zeta_n$ is the primitive $n$-th root of unity. We could just as easily take $\zeta_n = e^{2\pi i k / n}$ where $\gcd(k, n) = 1$.
+\end{definition}
+\begin{example}
+    $n = 1$ is boring. $n = 2$ is boring. $n = 2$ gives a quadratic field.
+\end{example}
+\begin{example}
+    $K = \QQ(i)$ for $n=4$, $\zeta_4 = i$.
+
+    $K = \QQ(\sqrt{-3}) = \QQ\left(\frac{1 + \sqrt{-3}}{2}\right) = \QQ(\zeta_3)$.
+\end{example}
+
+We note:
+\begin{itemize}
+    \item
+          Any embedding of $\QQ(\zeta_n)\hookrightarrow \CC$ has image contained in $\QQ(\zeta_n)$. (In other words, these extensions are Galois over $\QQ$.)
+    \item
+          We care about extensions of the form $\QQ(\sqrt[n]{a})$ where $a\in\QQ$. But these are not Galois in general.
+
+          The solution is to ``repair'' the base field. Take $K = \QQ(\zeta_n)$ and $L = K(\sqrt[n]{a})$. Then $L/K$ is Galois. This is to say that the embeddings $L\hookrightarrow \CC$ that fix $K$ stabilize $L$ (send $L$ to itself).
+    \item \emph{Kronecker-Weber theorem} that every finite Abelian extension of $\QQ$ is contained in some cyclotomic extension.
+\end{itemize}
+
+We have some \ul{key facts about cyclotomic extensions}:
+\begin{enumerate}[1)]
+    \item $[\QQ(\zeta_n) : \QQ] = \phi(n)$.
+    \item The field automorphisms $\sigma: \QQ(\zeta_n)\to \QQ(\zeta_n)$ form a cyclic group under composition, of order $\phi(n)$. (Our automorphisms send $\zeta_n$ to some other primitive $n$-th root of unity $\zeta_n'$.)
+
+          From now on, let $K = \QQ(\zeta_n)$.
+    \item Then $\riO_K = \ZZ[\zeta_n]$. The case where $n = p$ is in the textbook.
+    \item We have
+          \[\disc(K) = (-1)^{\phi(n)/2}\frac{n^{\phi(n)}}{\displaystyle\prod_{\substack{p\mid n \\ p\text{ prime}}} p^{\phi(n)/(p-1)} }\]
+
+          For $n = p$ prime, we get
+          \begin{align*}
+              \disc(\QQ(\zeta_p)) & = (-1)^{(p-1)/2}\cdot \frac{p^{p-1}}{p} \\
+                                  & = (-1)^{(p-1)/2}\cdot p^{p-2}
+          \end{align*}
+          In particular, if $p\in\ZZ$ is a prime with $p\nmid n$, then $p\nmid \disc(K)$.
+\end{enumerate}
+
+\subsection{Prime Factorization in Number Fields}
+Useful to note that this is section 5.1 in \cite{stewart2015algebraic}.
+
+\recall the examples of non-UFDs given previously in Math 1530.
+\begin{example}
+    In $\ZZ[\sqrt{-5}]$, we have $6 = 2\cdot 3 = (1 + \sqrt{-5})(1 - \sqrt{-5})$. And we check that each term here is irreducible.
+
+    (2, for example, is not an associate of $1+\sqrt{-5}$ or $(1 - \sqrt{-5})$. Simply reason by norms.)
+\end{example}
+
+\begin{example}\label{example:q-sqrt-15}
+    What about $\QQ(\sqrt{15})$?
+    \[2\cdot 5 = (5 + \sqrt{15})(5 - \sqrt{15})\]
+    in $\ZZ[\sqrt{15}]$.
+\end{example}
+\begin{example}
+    In $\QQ(\sqrt{30})$,
+    \[2\cdot 3 = (6 + \sqrt{30})(6 - \sqrt{30})\]
+
+    In $\QQ(\sqrt{-10})$,
+    \[2\cdot 7 = (2 + \sqrt{-10})(2 - \sqrt{-10})\]
+\end{example}
+\begin{ques*}
+    What's going wrong?
+\end{ques*}
+In \cref{example:q-sqrt-15}, we notice
+\begin{align*}
+    5 + \sqrt{15} = \sqrt{5}(\sqrt{5} + \sqrt{3}) \\
+    5 - \sqrt{15} = \sqrt{5}(\sqrt{5} - \sqrt{3})
+\end{align*}
+Multiplying these together, we get
+\[25 - 15 = 10 = 5\cdot (\sqrt{5} + \sqrt{3})\cdot (\sqrt{5} - \sqrt{3})\]
+so the factors in
+\[\sqrt{5}\qquad \sqrt{5} + \sqrt{3} \qquad \sqrt{5} - \sqrt{3}\]
+are being grouped in $2$ ways:
+\[(a_1^2)(a_2a_3) = (a_1a_2)(a_1a_3)\]
+In other words, the problem goes away in $\riO_L$ for $L = \QQ(\sqrt{15}, \sqrt{5}) = \QQ(\sqrt{3}, \sqrt{5})$ (we extend to get some other things in it).
+
+We can check that the same thing underlies the other two examples.
+
+\begin{theorem}[Principal Ideal Theorem]
+    Let $K$ be a number field. Then there is a finite extension $L/K$ such that every nonzero $\alpha\in\riO_K$ has a unique factorization into irreducibles in $\riO_L$.
+\end{theorem}
+
+\textbf{Caution!} This does \emph{not} say that $\riO_L$ is a UFD. So it is not true that every number field $K$ has a finite extension $L/K$ such that $\riO_L$ is a UFD.
