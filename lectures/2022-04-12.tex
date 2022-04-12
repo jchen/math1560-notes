@@ -1,0 +1,87 @@
+%!TEX root = ../notes.tex
+\section{April 12, 2022}
+\subsection{Ideals and Fractional Ideals}
+Let $R$ be a commutative ring with an identity.
+
+Recall that if $I, J$ are ideals of $R$, then
+\[I + J := \left\{ a_i + b_j \mid a_i\in I, b_j\in J \right\}\]
+and
+\[IJ := \left\{\sum a_ib_j \mid a_i\in I, b_j\in J\right\}\]
+Let $K$ be a number field. An ideal of $riO_K$ is sometimes called an \ul{intgral ideal}. This is to contrast them with fractional ideals.
+\begin{definition}
+    A fractional ideal of $\riO_K$ is a set of the form $c^{-1}\mathfrak{b}$ when $\mathfrak{b}$ is an ideal of $\riO_K$ and $0\neq c\in\riO_K$.
+\end{definition}
+\begin{example}
+    The fractional ideals of $\ZZ$ are of the form $r\ZZ$ where $r\in\QQ$.
+
+    $\frac{2}{5}\ZZ$ is a fractional ideal of $\ZZ$.
+\end{example}
+\textbf{Caution!} If $\riO_K$ is a PID, then fractional ideals are of the form
+\[c^{-1}\langle d\rangle\]
+for $0\neq c\in\riO_K$ and $d\in\riO_K$. This is just $c^{-1}d\riO_K = \alpha\riO_k$ where $\alpha = c^{-1}d$.
+
+Addition/multiplication of fractional ideals works similarly as in the case of ideals:
+
+If $\mathfrak{a}, \mathfrak{b}$ are fractional ideals, then
+\begin{align*}
+    \mathfrak{a}\mathfrak{b}    & := \left\{ \text{finite sums }\sum a_ib_j\mid a_i\in\mathfrak{a}, b_j\in\mathfrak{b} \right\} \\
+    \mathfrak{a} + \mathfrak{b} & := \left\{a_i + b_j\mid a_i\in\mathfrak{a}, b_j\in\mathfrak{b} \right\}
+\end{align*}
+If $a_1 = c_1^{-1}\mathfrak{b}_1$ and $a_2 = c_2^{-1}\mathfrak{b}_2$ where $\mathfrak{b}_1, \mathfrak{b}_2$ are integral ideals, then we have
+\[\mathfrak{a}_1\mathfrak{a}_2 = (c_1c_2)^{-1}\mathfrak{b}_1\mathfrak{b}_2\]
+The multiplication is obviously associative and commutative, with $\riO_K$ as the identity.
+
+Thus, the set of \emph{nonzero} fractional ideals forms a monoid\footnote{Also a commutative ring with addition, actually.} under (commutative) multiplication.
+
+If we want the structure of an Abelian group, we need to build the inverses in.
+\begin{theorem}[p. 109 \cite{stewart2015algebraic}]\label{thm:fractional-ideals-group}
+    The nonzero fractional ideals of $\riO_K$ form a group under multiplication.
+\end{theorem}
+For each ideal $\mathfrak{a}\subseteq \riO_K$, define
+\[\mathfrak{a}^{-1} := \left\{ x\in K\mid x\mathfrak{a}\subseteq \riO_K \right\}\]
+Automatically, this set contains all of $\riO_K$.
+
+If $\mathfrak{a}\neq 0$, then for any $0\neq c\in \mathfrak{a}$, $c\mathfrak{a}^{-1}\subseteq \riO_K$. Fixing such a $c$, we have that $c\mathfrak{a}^{-1} =: \mathfrak{b}$ is an ideal of $\riO_K$. (Why? $c\mathfrak{a}^{-1}$ is an $\riO_K$-submodule of $\riO_K$, i.e. that is to say, an ideal of $\riO_K$.)
+
+\begin{example}
+    Let's take $K = \QQ$ so that $\riO_K = \ZZ$
+    \begin{align*}
+        \mathfrak{a}      & = 5\ZZ           \\
+        \mathfrak{a}^{-1} & = \frac{1}{5}\ZZ
+    \end{align*}
+    Thus $\mathfrak{a}^{-1} = c^{-1}\mathfrak{b}$, so that $\mathfrak{a}^{-1}$ is a fractional ideal.
+\end{example}
+
+By definition,
+\[\mathfrak{a}\mathfrak{a}^{-1} = \mathfrak{a}^{-1}\mathfrak{a} \subseteq \riO_K\]
+Harder to show: $\mathfrak{a}\mathfrak{a}^{-1} = \riO_K$. We blackbox this for the moment (p.110-112 \cite{stewart2015algebraic}, uses fact that $\riO_K$ is a Dedekind domain).
+We can extend this discussion to fractional ideals $\mathfrak{a}$. Assuming this, we have shown \cref{thm:fractional-ideals-group}.
+
+\begin{theorem*}[p. 109 \cite{stewart2015algebraic}]
+    The nonzero fractional ideals of $\riO_K$ form a group under multiplication.
+\end{theorem*}
+\begin{proof}
+    Let $\mathfrak{a}$ be a nonzero fractional ideal of $\riO_K$. We have $\mathfrak{a} = c^{-1}\mathfrak{b}$ with $\mathfrak{b}$ integral. We define $\mathfrak{a}' = c\mathfrak{b}^{-1}$, which is a fractional ideal, and $\mathfrak{a}\mathfrak{a}' = \riO_K$. So $\mathfrak{a}'$ is the inverse of $\mathfrak{a}$.
+\end{proof}
+
+\recall A prime ideal of a commutative ring $R$ can be defined in a couple of different ways:
+
+\begin{definition}[Prime Ideal]
+    An ideal $\mathfrak{p}$ is \ul{prime} if $IJ\subseteq \mathfrak{p}$ implies $I\subseteq \mathfrak{p}$ or $J\subseteq \mathfrak{p}$.
+\end{definition}
+\begin{definition*}[Prime Ideal (alternative)]
+    $\mathfrak{p}$ is \ul{prime} if $ab\in\mathfrak{p}$ implies that $a\in\mathfrak{p}$ or $b\in\mathfrak{p}$.
+\end{definition*}
+
+To prove unique factorization of nonzero ideals, we first need to prove $\riO_K$ is a Dedekind domain.
+\begin{theorem}[p.108 \cite{stewart2015algebraic}]
+    The ring of integers $\riO_K$:
+    \begin{enumerate}[a)]
+        \item is an integral domain,
+        \item is Noetherian (every ascending chain of ideals terminates\footnote{A chain of ideals is a sequence of inclusions $I_1\subseteq I_2\subseteq I_3\subseteq \cdots$; and for such a chain to \ul{terminate} means that $\exists N$ such that $I_n = I_N$ for all $n\geq N$.}, or every ideal is finitely generated),
+        \item is integrally closed in its field of fractions (that is, if $\alpha\in\mathsf{Frac}(\riO_K) = K$ satisfies a monic polynomial equation with coefficients in $\riO_K$, then $\alpha\in\riO_K$),
+        \item has that every nonzero prime ideal of $\riO_K$ is maximal.
+    \end{enumerate}
+    We note that a ring satisfying (a)--(d) is called a \ul{Dedekind domain}.
+\end{theorem}
+
