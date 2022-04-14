@@ -409,3 +409,4 @@
 \newcommand{\QQbar}{\overline{\QQ}}
 \newcommand{\ZZbar}{\overline{\ZZ}}
 \newcommand{\riO}{\mathcal{O}}
+\newcommand{\frk}[1]{\mathfrak{#1}}

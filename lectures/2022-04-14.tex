@@ -1,0 +1,90 @@
+%!TEX root = ../notes.tex
+\section{April 14, 2022}
+\recall Last time:
+\begin{itemize}
+    \item we defined fractional ideals,
+    \item define the inverse of a nonzero integral ideal (and noted at the end of the same definition holds for fractional ideals)\footnote{An integral domain has all of its nonzero fractional ideals invertible iff it is a Dedekind domain.}
+    \item we briefly stated the definition of a Dedekind domain.
+\end{itemize}
+\subsection{Dedekind Domains}
+We introduced last time\dots
+\begin{theorem*}[p.109 \cite{stewart2015algebraic}]
+    The ring of integers $\riO_K$:
+    \begin{enumerate}[(a)]
+        \item is an integral domain;
+        \item is Noetherian, that is to mean one of the following:
+              \begin{enumerate}[(i)]
+                  \item every ascending chain of ideals terminates, or
+                  \item every ideal is finitely generated;
+              \end{enumerate}
+        \item if $\alpha\in\mathsf{Frac}(\riO_K)=K$ satisfies a nonzero monic polynomial equation with coefficients in $\riO_K$, then $\alpha\in\riO_K$ ($\riO_K$ is integrally closed in its field of fractions);
+        \item every nonzero prime ideal of $\riO_K$ is maximal.
+    \end{enumerate}
+\end{theorem*}
+\begin{proof}
+    ~\begin{enumerate}[(a)]
+        \item \emph{We know this.}
+        \item
+              We know that if $[K : Q] = n$, then $\riO_K$ is a free $\ZZ$-module of rank $n$\footnote{That is, a free Abelian group of rank $n$; or also to say possesses an integral basis of order $n$}.
+
+              If $\frk{a}$ is an ideal of $\riO_K$, then $(\frk{a}, +)$ is a free Abelian group of rank $\leq n$\footnote{\emph{Theorem 1.16} of \cite{stewart2015algebraic} proves this fact about submodules of free modules.}. As a group, $\frk{a}$ is finitely generated, so $\frk{a}$ (with some glossing over) is finitely generated as an ideal.
+        \item \emph{Was noted in a previous lecture.}
+        \item
+              Let $\frk{p}$ be a nonzero prime ideal of $\riO_K$. Let $0\neq \alpha\in\frk{p}$. Then $N:= N_{K/\QQ}(\alpha) = \alpha_1\alpha_2\cdots \alpha_n$\footnote{We know this lives in $\QQ$ since it's a term of the polynomial.} where $\alpha_1 := \alpha$ and $\alpha_i$ are the conjugates of $\alpha = \alpha_1$.
+
+              Note that $\alpha_2\alpha_3\cdots \alpha_n\in K$ since the whole product $\alpha_1\alpha_2 \cdots \alpha_n\in\QQ\subseteq K$ and $\alpha_1\in K$. In fact, $\alpha_2\alpha_3\cdots \alpha_n\in\riO_K$. Hence $N:= N_{K/\QQ}(\alpha)\in\frk{p}$. Thus $N\cdot \riO_K\subseteq \frk{p}$. This means that, taking quotients\footnote{If $I\subseteq J\subseteq R$, then $R/J$ is a quotient of $R/I$.},
+              \[\riO_K/\frk{p}\text{ is a quotient of }\riO_K/N\riO_K\]
+              But $\riO_K/N\riO_K$ is a finitely generated Abelian group where every element has finite order, so $\riO_K/N\riO_K$ is finite.
+
+              Hence $\riO_K/\frk{p}$ is finite. So $\riO_K/\frk{p}$ is also an integral domain (by ring theory). Any finite integral domain is a field, so $\riO_K/\frk{p}$ is a field. So $\frk{p}$ has to be maximal (again by ring theory).
+    \end{enumerate}
+    Which proves part (a) through (d).
+\end{proof}
+\begin{proposition}[p.112 \cite{stewart2015algebraic}]
+    Every nonzero ideal $\frk{a}\subseteq\riO_K$ is a product of prime ideals.
+\end{proposition}
+\begin{proof}\footnote{This is very analogous to the proof of the existence of prime factorization in $\ZZ$. Noetherian-ness of $\riO_K$ takes the place of well-ordereding. $\frk{a}$ being maximal ideal that isn't the product of prime ideals is akin to selecting $a$ to be the least element not a product of primes. $a$ itself isn't prime so is a product, and so on\dots}
+    If not, let $\frk{a}$ be maximal subject to the condition of not being a product of prime ideals.
+    \begin{remark*}
+        Recall Zorn's Lemma: in a partially ordered set where every chain has an upper bound, there is at least one maximal element. We apply Zorn's Lemma to ideals to find such a maximal ideal.
+    \end{remark*}
+    Then $\frk{a}$ is not prime, but applying Zorn to the poset of ideals containing $\frk{a}$ to conclude that $\frk{a}\subseteq \frk{p}$ for some maximal (hence prime) ideal $\frk{p}$.
+
+    We have that $\riO_K\subsetneq \frk{p}^{-1}\subseteq \frk{a}^{-1}$, since $\frk{p}$ is a proper ideal of $\riO_K$, and $\frk{a}\subseteq\frk{p}$.
+
+    It follows that\footnote{Inverses let us preserve containment of $\subsetneq$, because if we hit both sides with $\frk{a}^{-1}$ we get nice things.}
+    \[\frk{a}\subsetneq \frk{a}\frk{p}^{-1}\subseteq \frk{a}\frk{a}^{-1} = \riO_K\]
+    By the maximality of $\frk{a}$, we have that
+    \[\frk{a}\frk{p}^{-1} = \frk{p}_2\frk{p}_3\cdots \frk{p}_r\]
+    where $\frk{a}\frk{p}^{-1}$ is a product of prime ideals $\frk{p}_2, \frk{p}_3, \dots, \frk{p}_r$, so
+    \[\frk{a} = \frk{p}\frk{p}_2\frk{p}_3\cdots \frk{p}_r\]
+    which is a contradiction, since $\frk{a}$ is the product of prime ideals.
+\end{proof}
+
+\begin{lemma}[p. 113 \cite{stewart2015algebraic}]
+    For ideals $\frk{a}, \frk{b}$ of $\riO_K$, $\frk{a}\mid\frk{b} \iff \frk{b}\subseteq \frk{a}$.
+    \begin{ques*}
+        What does $\frk{a}\mid \frk{b}$ mean? It means there exists an ideal $\frk{c}$ such that $\frk{b} = \frk{c}\cdot \frk{a}$.
+    \end{ques*}
+\end{lemma}
+\begin{proof}
+    Since $\frk{c}\frk{a}\subseteq \frk{a}$, we have that $\frk{a}\mid \frk{b}$ implies that $\frk{b}\subseteq \frk{a}$.
+
+    Now we prove the other direction. Suppose $\frk{b}\subseteq\frk{a}$, then
+    \[\frk{b} = \frk{a}(\frk{a}^{-1}\frk{b}),\]
+    where $\frk{a}^{-1}\frk{b}$ is integral. Letting $\frk{a}^{-1}\frk{b} = \frk{c}$ shows that $\frk{a}\mid\frk{b}$.
+\end{proof}
+
+\begin{theorem}
+    Every nonzero ideal of $\riO_K$ has a unique factorization as a product of prime ideals.
+\end{theorem}
+\begin{proof}
+    The lemma above tells us that $\frk{p}$ is prime iff $\frk{p}\mid \frk{a}\frk{b} \Rightarrow \frk{p}\mid\frk{a}$ or $\frk{p}\mid\frk{b}$. Then proceed as follows as we had done so in integers.
+
+    Suppose
+    \begin{align*}
+        \frk{a} & = \frk{p}_1\frk{p}_2\cdots \frk{p}_r \\
+                & = \frk{q}_1\frk{q}_2\cdots \frk{q}_s
+    \end{align*}
+    for some prime ideals $\frk{p}_1, \frk{p}_2, \cdots,  \frk{p}_r, \frk{q}_1, \frk{q}_2, \cdots, \frk{q}_s$. Then $\frk{p}_1$ divides $\frk{q}_j$ for some $\frk{j}$. Since $\frk{q}_j$ is maximal, $\frk{p}_1 = \frk{q}_j$. We multiply by $\frk{p}_1^{-1}$ repeat the process, concludes the proof.
+\end{proof}
