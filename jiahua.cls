@@ -406,6 +406,7 @@
 \newcommand{\otoh}{\textsc{otoh}}
 \DeclareMathOperator{\minpoly}{\mathsf{minpoly}}
 \DeclareMathOperator{\disc}{\mathsf{disc}}
+\DeclareMathOperator{\Disc}{\mathsf{Disc}}
 \newcommand{\QQbar}{\overline{\QQ}}
 \newcommand{\ZZbar}{\overline{\ZZ}}
 \newcommand{\riO}{\mathcal{O}}
