@@ -1,0 +1,90 @@
+%!TEX root = ../notes.tex
+\section{April 26, 2022}
+
+\subsection{Final Exam Logistics}
+\begin{itemize}
+    \item There is an in-person component and a take-home component to the final, which are weighted equally.
+    \item Midterm score will be $\max(M_1, F_1)$ where $M_1$ is the previous midterm score and $F_1$ is the in-person final component. So a good in-person final component will \emph{wipe out} the previous midterm score.
+    \item Take-home will be 72 hours so there is more flexibility and time.
+\end{itemize}
+
+\subsection{Dedekind-Kummer Theorem}
+\recall from last time
+\begin{itemize}
+    \item We introduced definitions of ramified primes, totally split primes, inert primes.
+    \item We proved that $p\mid \Disc(K)\Leftrightarrow p$ ramifies in $K$ assuming monogenicity of $K$.
+          \begin{itemize}
+              \item We had $\riO_K = \ZZ[\theta]$, so we can understand $\riO_K$ well via $\minpoly_\QQ(\theta)$. We factored
+                    \[(p) = \frk{p}_1^{e_1}\cdots \frk{p}_r^{e_r}\]
+          \end{itemize}
+\end{itemize}
+Today, we use a similar idea to prove the \emph{Dedekind-Kummer Theorem}:
+\begin{theorem}[Dedekind-Kummer]\label{thm:dk}
+    Let $K = \QQ(\theta)$, with $\theta\in\riO_K$. Let $f:=\minpoly_\QQ(\theta)$ and let $p\in\ZZ$ be a prime. Suppose $p\nmid \big[\riO_K : \ZZ[\theta]\big]$ (in the monogenic case, this is true). If
+    \[\overline{f}(x) = \overline{\pi}_1(x)^{e_1}\overline{\pi}_2(x)^{e_2}\cdots \overline{\pi}_r(x)^{e_r}\]
+    is the factorization of $f(x)$ into irreducibles modulo $p$. Then we have
+    \[p\riO_K = \frk{p}_1^{e_1}\frk{p_2}^{e_2}\cdots \frk{p}_r^{e_r}\]
+    is the prime factorization of $p\riO_K$, where
+    \[\frk{p}_i = (p, \pi_i(\theta))\quad\text{for any lift $\pi_i\in\ZZ[x]$ of $\overline{\pi}_i$.}\]
+    (Note: we say that $\pi_i(x)$ is a \emph{lift} of $\overline{\pi}_i(x)$ if $\pi_i(x)\pmod{p} = \overline{\pi}_i(x)$).
+\end{theorem}
+\begin{example}
+    $K = \QQ(\zeta_5)$, a cyclotomic extension. These are all monogenic. $\riO_K = \ZZ[\zeta_5]$. Then $\big[\riO_K : \ZZ[\theta]\big] = 1$ so we can `factor' \emph{any} prime $p$. We apply D-K (\cref{thm:dk}) to the minimum polynomial of $\zeta_5$ over $\QQ$:
+    \[f := \minpoly_\QQ(\zeta_5) = x^4 + x^3 + x^2 + x + 1\]
+    Let's factor $2\riO_K$. The theorem tells us that we need to factor $f\pmod{2}$. We claim that $f$ is irreducible modulo $2$.
+
+    If it's not, then $f$ has either a linear or quadratic factor modulo $2$. It's clear that there are no linear factors mod $2$. Suppose there exists a quadratic factor. Then some $\alpha$ with $\deg_{\FF_2}\alpha = 2$ is a root of $f$. Hence $\FF_2(\alpha)\cong \FF_4$, so $\alpha^4 = \alpha$, so $\alpha$ is a root of
+    \[x^3 + x^2 + 2x + 1 = x^3 + x^2 + 1\]
+    which implies that $\minpoly\FF_2(\alpha)\mid x^3 + x^2 + 1 =: g$ which implies $g$ has a root in $\FF_2$ which is obviously a contradiction.
+
+    Since $f$ is irreducible, then $2$ is inert by D-K.
+\end{example}
+\begin{example}
+    Let's factor $5\riO_K$ for $K = \QQ(\zeta_5)$.
+    \begin{align*}
+        f(x) & \equiv x^4 - 4x^3 + 6x^2 - 5x + 1\pmod{5} \\
+             & \equiv (x-1)^4
+    \end{align*}
+    so $(5) = (5, \zeta_5 - 1)^4$ and $5$ is \emph{totally ramified}.
+\end{example}
+\begin{example}
+    Similarly, let's try $11\riO_K$ with $K = \QQ(\zeta_5)$.
+    \[f(x) = (x - 4)(x - 9)(x - 5)(x - 3)\pmod{11}\]
+    so $(11) = (11, \zeta_5 - 4)(11, \zeta_5 - 9)(11, \zeta_5 - 5)(11, \zeta_5 - 3)$. So $11$ is totally split.
+
+    More generally for $K = \QQ(\zeta_n)$, $n\geq 3$ prime, $p$ splits completely if and only if $p\equiv 1\pmod{n}$.
+\end{example}
+
+\begin{proof}[Proof of D-K (\cref{thm:dk})]
+    Consider the homomorphism
+    \begin{align*}
+        \ZZ[\theta]/p\ZZ[\theta] & \overset{\phi}{\longrightarrow} \riO_K/p\riO_K \\
+        x + p\ZZ[\theta]         & \overset{\phi}{\longmapsto} x + p\riO_K
+    \end{align*}
+    Let $m = \big[\riO_K : \ZZ[\theta]\big]$, so that $p\nmid m$ by hypothesis.
+
+    We want to show that $\phi$ is surjective. Let $x\in\riO_K$. Then applying Lagrange's Theorem to the quotient group $\riO_K/\ZZ[\theta]$ tells us that $y:= mx\in\ZZ[\theta]$.
+
+    Let $m'$ be such that $m'm \equiv 1\pmod{p\ZZ}$, so that $m'm\equiv 1\pmod{p\riO_K}$. Then
+    \begin{align*}
+        m'y + p\ZZ[\theta] \overset{\phi}{\longmapsto} m'mx + p\riO_K = x + p\riO_K
+    \end{align*}
+    so $\phi$ is surjective (note the importance that $p\nmid m$ in producing $m'$).
+
+    If $\left\{ \alpha_1, \dots, \alpha_n \right\}$ is an integral basis, then every $x\in\riO_K$ is uniquely expressible as $x = a_1\alpha_1 + \cdots + a_n\alpha_n$ for $a_i\in\ZZ$, but we mod by $p$. Similarly on the left, $\left\{ 1, \theta, \theta^2, \dots, \theta^{n-1} \right\}$ is an integral basis.
+
+    So looking at both $\ZZ[\theta]/p\ZZ[\theta]$ and $\riO_K/p\riO_K$ in their $\ZZ/p\ZZ$ vector-space structures makes it clear that their orders are each $p^n$.
+
+    We have a surjection $\phi$ between sets of equal cardinality, hence $\phi$ is a bijection. Then $\phi$ is also an isomorphism. Hence
+    \[\ZZ[\theta]/p\ZZ[\theta]\cong \riO_K / p\riO_K\]
+    Last time we said that
+    \begin{equation}
+        \label{eqn:dk-cross}\tag{\textdagger}
+        \ZZ[\theta]/p\ZZ[\theta]\cong \FF_p[x]/(\overline{f}) = \FF_p[x]/\overline{\pi}_1(x)^{f_1}\times \cdots \times \FF_p[x]/\overline{\pi}_s(x)^{f_s}
+    \end{equation}
+    where $(\overline{f})$ is the ideal generated by the reduction of $f$ modulo $p$, and $\overline{f} = \overline{\pi}_1^{e_1}\cdots \overline{\pi}_r^{e_r}$ is the prime factorization of $\overline{f}$.
+
+    We also said that \cref{eqn:dk-cross} is $\riO_K/\frk{p}_1^{e_1}\times \riO_K/\frk{p}_2^{e_2}\times \cdots\times \riO_K/\frk{p}_r^{e_r}$ as this latter ring is $\riO_K/(p)$.
+
+    We deploy the same argument as last time to get the \emph{shape} component of the theorem (showing powers are equal). We get that the $\pi_i$'s correspond to the $\frk{p}_i$'s and the exponents align (after appropriate reordering).
+\end{proof}
