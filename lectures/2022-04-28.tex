@@ -1,0 +1,113 @@
+%!TEX root = ../notes.tex
+\section{April 28, 2022}
+\subsection{Dedekind-Kummer Theorem \emph{continued}}
+\recall last time we
+\begin{itemize}
+    \item Briefly revisited proof that $p\mid \Disc(K)\Leftrightarrow p$ ramifies in $K$ in the monogenic case.
+    \item Stated Dedekind-Kummer Theorem (\cref{thm:dk}), proved (albeit somewhat rapidly) the ``shape'' piece of the theorem.
+    \item Unfinished business: $\frk{p}_i = (p, \pi_i(\theta))$ for $\pi_i$ any lift to $\ZZ[x]$ of the irreducible factor $\pi_i$ that corresponds to $\frk{p}_i$.
+\end{itemize}
+\begin{theorem*}[Dedekind-Kummer]
+    Let $K = \QQ(\theta)$, $\theta \in \riO_K$, $f := \minpoly_\QQ(\theta$, $p\in\ZZ$ a prime.
+    Suppose $p\nmid \big[\riO_K : \ZZ[\theta]\big]$. If
+    \[\overline{f}(x) = \overline{\pi}_1(x)^{e_1}\overline{\pi}_2(x)^{e_2}\cdots \overline{\pi}_r(x)^{e_r}\]
+    is the prime factorization of $f$ mod $p$, then
+    \[p\riO_K = \frk{p}_1^{e_1}\frk{p_2}^{e_2}\cdots \frk{p}_r^{e_r}\]
+    is the prime factorization of $p\riO_K$ ($\star$) where
+    \[\frk{p}_i = (p, \pi_i(\theta))\]
+    for any lift $\pi_i\in\ZZ[x]$ of $\overline{pi}_i$.
+\end{theorem*}
+Last time, we proved this theorem up to ($\star$), it remains to prove each of the $\frk{p}_i$'s specifically.
+\begin{proof}[Proof so far]
+    Defined homomorphism
+    \begin{align*}
+        \ZZ[\theta]/p\ZZ[\theta] & \overset{\phi}{\longrightarrow} \riO_K/p\riO_K \\
+        x + p\ZZ[\theta]         & \overset{\phi}{\longmapsto} x + p\riO_K
+    \end{align*}
+    and we argued that $\phi$ is an isomorphism.
+
+    Hence
+    \begin{equation}\label{eqn:dk-long-cross}\tag{\textdagger}
+        \underset{
+        \substack{\text{\rotatebox[origin=c]{270}{$\cong$}} \\ \riO_K/\frk{p}_i^{e_i}\times \cdots \times \riO_K/\frk{p}_r^{e_r}}
+        }{\riO_K / p\riO_K}
+        \cong \quad \ZZ[\theta]/p\ZZ[\theta]\quad \cong\quad  \ZZ[x]/(p, f(x))\quad\cong \underset{
+            \substack{\text{\rotatebox[origin=c]{270}{$\cong$}} \\ \FF_p[x]/\overline{\pi}_1(x)^{f_1}\times \cdots \times \FF_p[x]/\overline{\pi}_s(x)^{f_s}}
+        }{\FF_p[x]/(\overline{f})}
+    \end{equation}
+    We can break this isomorphism up factor-by-factor (hitting with Sunzi's theorem).
+
+    One argues that $r = s$ and after reordering, $e_i = f_i$ $\forall i$, and so in fact \emph{(aside)}
+    \[\riO_K/\frk{p}_i\cong \FF_p[x]/(\overline{pi}_i(x))\]
+    where $\riO_K/\frk{p}_i$ is a finite field of characteristic $p$ (extension of $\FF_p$, $f_i:=[\riO_K/\frk{p}_i : \FF_p]$).
+
+    We have that $\FF_p[x]/(\overline{\pi}_i(x))$ has degree $\deg(\overline{\pi}_i(x))$ over $\FF_p$, so $f_i = \deg(\overline{\pi}_i(x))$. This $f_i$ is called the \emph{inertial degree} of $\frk{p}_i$ over $p$.
+
+    Thus
+    \[|\riO_K / \frk{p}_i| = p^{f_i} = p^{\deg \overline{\pi}_i}.\]
+    \emph{end of aside}.
+
+    \emph{The idea (from what I think I gathered from lecture) is to push something back through every isomorphism to get this result, applying the third isomorphism theorem. }
+
+    The ideal $(\overline{\pi}_i(x))\subseteq \FF_p[x]/(\overline{f})$ corresponds via the isomorphisms in \cref{eqn:dk-long-cross} to the ideal $\frk{p}_i/p\riO_K$. The third isomorphism theorem then says that $(p, \pi_i(\theta))$ (for any lift $\pi_i$) is the \ul{only} lift of $\frk{p}_i/p\riO_K$ to $\riO_K$.
+\end{proof}
+
+\begin{example}
+    \emph{Dedekind's Revenge}: what can happen when you don't take the $p\nmid \big[\riO_K : \ZZ[\theta]\big]$ into account?
+
+    $K = \QQ(\sqrt{-3})$, $\riO_K = \ZZ\left[ \frac{1 + \sqrt{-3}}{2} \right] = \ZZ\left[ \frac{-1 + \sqrt{-3}}{2} \right] = \ZZ[\omega]$. Maybe you're silly and you let $\theta = \sqrt{-3}$ such that $\big[\riO_K : \ZZ[\theta]\big] = 2$. Argue that the $\disc(x^2 + 3) = -12$ while $\disc(K) = \disc(x^2 + x + 1) = -3$, so we cannot apply Dedekind-Kummer to $p = 2$.
+
+    We get $(x^2 + 3) = x^2 - 1 = (x-1)^2\pmod{2}$. Incorrectly applying the conclusion of Dedekind-Kummer would give us the square of a prime ideal, so we conclude that $2$ ramifies in $\riO_K$.
+
+    \otoh, if we take an actual generating element for $\riO_K$, say $\omega$ and take its minimum polynomial, factoring modulo $2$.
+    \[(x^2 + x + 1)\pmod{2}\]
+    is irreducible over $\FF_2$ since it has no roots mod $2$. So the correct conclusion is that $2$ is actually inert in $K = \QQ(\sqrt{-3})$.
+\end{example}
+
+\subsection{Ramification Degrees, Inertial Degrees, Primes Upstairs + Downstairs}
+We start \emph{upstairs}. Let $\frk{p}$ be a nonzero prime ideal of $\riO_K$. We showed that $\riO_K/\frk{p}$ is a finite field. It has characteristic $p$ where $p\ZZ = \frk{p}\cap \ZZ$. Where $p\riO_K = \frk{p}^e(\text{stuff})$. So it corresponds to a maximal ideal \emph{downstairs}.
+
+We already said that $f_i := \left[ \riO_K/\frk{p} : \ZZ/p\ZZ = \FF_p \right]$ is called the \ul{inertial degree}. We can think of $\riO_K / \frk{p}$ as an $\FF_p$-vector space too. It's a quotient of the $\ZZ/p\ZZ$ vector space by $\riO_K/(p)$.
+
+But we had commented on the cardinality of this vector space: $\riO_K/(p)$ has order $p^n$, where $n = [K : \QQ]$ ($\riO_K$ is a free Abelian group of rank $n$, and take each basis vector modulo $p$). Thus we observe that $f\leq n$.
+
+If $p\riO_K = \frk{p}^e\frk{p}_2^{e_2}\cdots \frk{p}_r^{e_r}$, then $e$ is called the \ul{ramification index} or the \ul{ramification degree} of $\frk{p}$ over $p$.
+
+We write $e(\frk{p} | p)$ to be the ramidication index; $f(\frk{p} | p)$ to be the inertial degree.
+
+We say that $\frk{p}$ \ul{lies above} $p$ in $K$, and that $p$ \ul{lies below} $\frk{p}$ in $\QQ$.
+
+Colloquially, $\frk{p}$ is a ``prime upstairs'' and $p$ is a ``prime downstairs''.
+
+\subsection{Fundamental Identity}
+
+\begin{theorem}[Fundamental Identity]
+    Let $p\in\ZZ$ be a rational prime, and suppose $[K : \QQ] = n$, and
+    \[p\riO_K = \frk{p}_1^{e_1}\frk{p_2}^{e_2}\cdots \frk{p}_g^{e_g}\]
+    is the prime factorization of $p\riO_K$, where $f_i := f(\frk{p}_i | p)$.
+
+    Then
+    \[\sum_{i = 1}^g e_i f_i = n.\]
+    is called the \ul{fundamental identity}.
+\end{theorem}
+If a prime $p$ is totally split, this is a sum of $1$'s.
+
+If $p$ is totally ramified, it corresponds to $g = 1$ and $e = n$, so the inertial degree is $1$.
+
+If $p$ is inert, then the residual extension $f = [\riO_K/\frk{p_1} : \FF_p] = n$.
+
+\begin{remark}
+    When $K/\QQ$ is Galois, the $e_i$ for $1\leq i\leq g$ are all the same, and similarly for the $f_i$.
+\end{remark}
+
+\emph{What does this proof look like?} It's fairly involved in the general case, but it simplifies a lot in the monogenic case which becomes simple given what we've done.
+
+\begin{proof}
+    We had
+    \[\riO_K / \frk{p}_i \cong \FF_p[x] / \overline{\pi}_i(x)\]
+    and that
+    \[\riO_K(p) \cong (\text{Sunzi})\cong \FF_p[x]/(\overline{f}) \cong (\text{Sunzi})\]
+    so $\deg(\overline{f}) = n$ and
+    \[\left\lvert\FF_p[x] / (\overline{\pi}_i^{e_i})\right\rvert = p^{e_i \deg \pi_i} = p^{e_i f_i}\]
+    and we take products (so sums in the exponents).
+\end{proof}
