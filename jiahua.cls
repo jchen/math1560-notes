@@ -411,3 +411,6 @@
 \newcommand{\ZZbar}{\overline{\ZZ}}
 \newcommand{\riO}{\mathcal{O}}
 \newcommand{\frk}[1]{\mathfrak{#1}}
+\DeclareMathOperator{\Vol}{\mathsf{Vol}}
+
+\newcommand{\bvec}[1]{\vec{\mathbf{#1}}}
