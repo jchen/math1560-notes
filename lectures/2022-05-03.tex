@@ -44,7 +44,10 @@ $G(4) = 16$, which we do know. So, your mileage may very much vary on these.
     A set $X$ is \ul{symmetric} if $x\in X$ implies $-x\in X$.
 \end{definition}
 \begin{example}
-    *** A triangle is convex but not symmetric. An ellipse about the origin is convex and symmetric. An annulus is symmetric but not convex.
+    A triangle is convex but not symmetric. An ellipse about the origin is convex and symmetric. An annulus is symmetric but not convex.
+    \begin{center}
+        \includegraphics[width=0.9\textwidth]{images/shapes.png}
+    \end{center}
 \end{example}
 \begin{theorem}[Minkowski, p.140 \cite{stewart2015algebraic}]
     Let $L$ be an $n$-dimensional lattice in $\RR^n$ with fundamental domain $T$, and let $X$ be a bounded symmetric convex subset of $\RR^n$. If
@@ -52,17 +55,10 @@ $G(4) = 16$, which we do know. So, your mileage may very much vary on these.
     then $X$ contains a non-zero point of $L$.
 \end{theorem}
 \begin{example}
-    If we have
-    ***
+    If we have the $\ZZ^2$ example, if we have a `dotted' open square with area $4$, we just about not contain any nonzero points. If we add anything in, we'll have a nontrivial point.
     \begin{center}
-        \begin{tikzpicture}
-            \draw[help lines, color=gray!30, dashed] (-2,-2) grid (2,2);
-            \draw[->,ultra thick] (-2,0)--(2,0) node[right]{$x$};
-            \draw[->,ultra thick] (0,-2)--(0,2) node[above]{$y$};
-            \draw[-, dotted] (0,1)--(1,1);
-        \end{tikzpicture}
+        \includegraphics[width=0.4\textwidth]{images/square.png}
     \end{center}
-    the $\ZZ^2$ example, if we have a `dotted' open square with area $4$, we just about not contain any nonzero points. If we add anything in, we'll have a nontrivial point.
 \end{example}
 
 \begin{proof}[Proof of 4 squares theorem using Minkowski's Theorem]

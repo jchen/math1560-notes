@@ -120,7 +120,12 @@ What we did here is to exploit the fact that \emph{all} Legendre symbols agree w
 
     So suppose $\alpha, \beta\in\overline{\QQ}$. Then $\QQ(\alpha)/\QQ$ and $\QQ(\beta)/\QQ$ are finite. Thus $\QQ(\alpha, \beta)/\QQ$ is finite (and all pieces of the associated diamond are finite extensions as well).
 
-    ***(Diamond diagram)
+    \[
+        \xymatrix{
+            \QQ \ar[d] \ar[r] &\QQ(\alpha)\ar[d]\\
+            \QQ(\beta) \ar[r] &\QQ(\alpha, \beta)}
+    \]
+
 
     Since $\alpha + \beta$, $\alpha - \beta$, $\alpha\beta$ and for $\beta \neq 0$, $\alpha/\beta \in \QQ(\alpha, \beta)$. This means that all of these elements are algebraic over $\QQ$.
 \end{proof}
@@ -149,13 +154,13 @@ However, something stronger than this holds.
         (t-\alpha_1)(t-\alpha_2)\cdots (t-\alpha_n)\qquad \alpha_1 & = \alpha \\
         (t-\beta_1)(t-\beta_2)\cdots (t-\beta_n)\qquad \beta_1     & = \beta  \\
     \end{align*}
-    These polynomials are separable. Hence for each $i$ and each $k\neq 1$, there exists at most one $x\in K_1$ such that 
+    These polynomials are separable. Hence for each $i$ and each $k\neq 1$, there exists at most one $x\in K_1$ such that
     \[\alpha_i + x\beta_k = \alpha_1 + x\beta_1.\]
-    (This only holds for more $x$ when you have $\beta_k$ and $\beta_1$ colliding). There are only finitely many of these equations, so we can choose a nonzero $c\in K_1$ such that 
+    (This only holds for more $x$ when you have $\beta_k$ and $\beta_1$ colliding). There are only finitely many of these equations, so we can choose a nonzero $c\in K_1$ such that
     \[\alpha_i + c\beta_k \neq \alpha_1 + c\beta_1\]
-    for any $1\leq i\leq n$ and $2\leq k\leq m$. 
+    for any $1\leq i\leq n$ and $2\leq k\leq m$.
 
-    Define $\theta = \alpha + c\beta$. We claim that 
+    Define $\theta = \alpha + c\beta$. We claim that
     \[K_1(\alpha, \beta) = K_1(\theta)\]
-    for which the proof is on page 39 of Stewart Tall. 
+    for which the proof is on page 39 of Stewart Tall.
 \end{proof}
